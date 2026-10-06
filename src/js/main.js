@@ -6,6 +6,7 @@ import { BackgroundSegmenter } from './segmenter.js';
 import { CaptureManager } from './capture.js';
 import { StripRenderer, FRAME_THEMES, PHOTO_FILTERS } from './stripRenderer.js';
 import { playChime } from './audio.js';
+import { initPWA } from './pwa.js';
 
 // DOM Elements
 const captureView = document.getElementById('captureView');
@@ -91,6 +92,7 @@ const stripRenderer = new StripRenderer();
 // Initialization
 // ============================================================================
 async function initApp() {
+  initPWA();
   setupEventListeners();
 
   // 1. Initialize MediaPipe
