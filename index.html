@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bibooth - By Mas Bian</title>
+  <meta name="description"
+    content="Web Photobooth modern dengan penggantian background AI real-time ala Google Meet, strip foto 4-cut Life4Cuts, filter warna, stiker, dan unduh resolusi tinggi." />
+  <link rel="icon" type="image/jpeg" href="/backgrounds/studio.jpg" />
+  <link rel="stylesheet" href="/src/style.css" />
+
+  <!-- MediaPipe Selfie Segmentation -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Main Fullscreen Application Container (100vh) -->
+  <main class="main-container">
+    <!-- PANEL 1: CAPTURE VIEW (Fullscreen Photobooth Stage) -->
+    <section class="view-panel active" id="captureView" aria-label="Photobooth Capture Stage">
+      <!-- Left: Fullscreen Camera Viewfinder Area -->
+      <div class="viewfinder-section">
+        <div class="viewfinder-card" id="viewfinderCard">
+          <canvas id="viewfinderCanvas" class="viewfinder-canvas" width="1280" height="720"></canvas>
+          <video id="webcamVideo" autoplay playsinline muted></video>
+
+          <!-- Flash Overlay -->
+          <div class="flash-overlay" id="flashOverlay"></div>
+
+          <!-- Countdown Overlay -->
+          <div class="countdown-overlay" id="countdownOverlay">
+            <div class="countdown-number" id="countdownNumber">3</div>
+            <div class="countdown-label" id="countdownLabel">Bersiap!</div>
+          </div>
+
+          <!-- Shot Progress Pill (for 4-cut) -->
+          <div class="shot-progress-pill" id="shotProgressPill" style="display: none;">
+            <span id="shotProgressText">Foto 1 dari 4</span>
+            <div class="shot-dots" id="shotDots">
+              <span class="shot-dot filled"></span>
+              <span class="shot-dot"></span>
+              <span class="shot-dot"></span>
+              <span class="shot-dot"></span>
+            </div>
+          </div>
+
+
+          <!-- Floating Viewfinder Controls (Google Meet Style Floating Pill) -->
+          <div class="floating-controls-bar">
+            <button class="floating-btn active" id="btnMirror" title="Cerminkan Tampilan Kamera">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m16 4 4 4-4 4M20 8H4M8 20l-4-4 4-4M4 16h16" />
+              </svg>
+              <span>Mirror</span>
+            </button>
+            <div class="floating-select-wrapper">
+              <select id="cameraSelect" class="floating-select" aria-label="Pilih Kamera">
+                <option value="">Pilih Kamera...</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Full-Height Sidebar for Menus -->
+      <aside class="controls-sidebar">
+        <!-- Sidebar Header: Brand -->
+        <div class="sidebar-header">
+          <div class="brand">
+            <div class="brand-icon">✦</div>
+            <h1 class="brand-title">LUMI BOOTH</h1>
+          </div>
+        </div>
+
+        <!-- Background Options (Meet Style) -->
+        <div class="control-card">
+          <div class="card-title">
+            <span>Virtual Background</span>
+          </div>
+
+          <!-- Tabs -->
+          <div class="bg-tabs" role="tablist">
+            <button class="bg-tab-btn active" data-tab="tab-none" role="tab">Asli</button>
+            <button class="bg-tab-btn" data-tab="tab-blur" role="tab">Blur</button>
+            <button class="bg-tab-btn" data-tab="tab-presets" role="tab">Preset</button>
+            <button class="bg-tab-btn" data-tab="tab-upload" role="tab">Upload</button>
+          </div>
+
+          <!-- Tab Content: None -->
+          <div class="bg-tab-content active" id="tab-none">
+            <p style="font-size: 0.82rem; color: var(--text-secondary); text-align: center; padding: 1.25rem 0;">
+              Background kamera asli.
+            </p>
+          </div>
+
+          <!-- Tab Content: Blur -->
+          <div class="bg-tab-content" id="tab-blur">
+            <div class="blur-options">
+              <button class="blur-btn" id="btnBlurLight" data-blur="blur-light">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                </svg>
+                <span>Blur Ringan</span>
+              </button>
+              <button class="blur-btn" id="btnBlurHeavy" data-blur="blur-heavy">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 3v18M3 12h18" />
+                </svg>
+                <span>Blur Tebal</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tab Content: Presets -->
+          <div class="bg-tab-content" id="tab-presets">
+            <div class="bg-presets-grid" id="presetsGrid">
+              <div class="bg-preset-item" data-preset="/backgrounds/studio.jpg">
+                <img src="/backgrounds/studio.jpg" alt="Minimalist Studio" />
+                <span class="bg-preset-name">Studio</span>
+              </div>
+              <div class="bg-preset-item" data-preset="/backgrounds/cyberpunk.jpg">
+                <img src="/backgrounds/cyberpunk.jpg" alt="Cyberpunk Neon" />
+                <span class="bg-preset-name">Cyberpunk</span>
+              </div>
+              <div class="bg-preset-item" data-preset="/backgrounds/cafe.jpg">
+                <img src="/backgrounds/cafe.jpg" alt="Cozy Cafe" />
+                <span class="bg-preset-name">Cafe</span>
+              </div>
+              <div class="bg-preset-item" data-preset="/backgrounds/sunset.jpg">
+                <img src="/backgrounds/sunset.jpg" alt="Sunset Beach" />
+                <span class="bg-preset-name">Sunset</span>
+              </div>
+              <div class="bg-preset-item" data-preset="/backgrounds/penthouse.jpg">
+                <img src="/backgrounds/penthouse.jpg" alt="Penthouse" />
+                <span class="bg-preset-name">Penthouse</span>
+              </div>
+              <div class="bg-preset-item" data-preset="/backgrounds/y2k.jpg">
+                <img src="/backgrounds/y2k.jpg" alt="Y2K Aesthetic" />
+                <span class="bg-preset-name">Y2K Dream</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Content: Upload -->
+          <div class="bg-tab-content" id="tab-upload">
+            <input type="file" id="bgFileInput" accept="image/*" style="display: none;" />
+            <div class="upload-dropzone" id="uploadDropzone">
+              <span class="upload-icon">📁</span>
+              <span class="upload-text" id="uploadDropText">Pilih / Seret Gambar</span>
+              <span class="upload-hint">Format JPG, PNG, atau WebP</span>
+            </div>
+          </div>
+
+          <!-- Anti-Leak Precision Control -->
+          <div class="anti-leak-control">
+            <div class="anti-leak-header">
+              <span class="anti-leak-label">Presisi Anti-Bocor:</span>
+              <span class="anti-leak-hint" id="antiLeakHint">Tinggi (Rapi)</span>
+            </div>
+            <div class="anti-leak-options">
+              <button class="anti-leak-btn" data-level="normal">Lembut</button>
+              <button class="anti-leak-btn active" data-level="high">Tinggi</button>
+              <button class="anti-leak-btn" data-level="ultra">Ultra</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shooting Setup Card -->
+        <div class="control-card">
+          <div class="card-title">
+            <span>Mode Photobooth</span>
+          </div>
+
+          <div class="mode-selector">
+            <button class="mode-btn active" data-mode="4-cut" id="modeBtn4Cut">
+              <span class="mode-btn-icon">🎞️</span>
+              <span class="mode-btn-title">4-Cut</span>
+              <span class="mode-btn-desc">Life4Cuts</span>
+            </button>
+            <button class="mode-btn" data-mode="grid-2x2" id="modeBtnGrid">
+              <span class="mode-btn-icon">⊞</span>
+              <span class="mode-btn-title">2x2 Grid</span>
+              <span class="mode-btn-desc">Collage</span>
+            </button>
+            <button class="mode-btn" data-mode="single" id="modeBtnSingle">
+              <span class="mode-btn-icon">🖼️</span>
+              <span class="mode-btn-title">1-Shot</span>
+              <span class="mode-btn-desc">Polaroid</span>
+            </button>
+          </div>
+
+          <!-- Timer Selector -->
+          <div class="timer-selector">
+            <span class="timer-label">Timer:</span>
+            <div class="timer-options">
+              <button class="timer-btn active" data-timer="3">3s</button>
+              <button class="timer-btn" data-timer="5">5s</button>
+              <button class="timer-btn" data-timer="10">10s</button>
+            </div>
+          </div>
+
+          <!-- Live Photo Toggle Switch -->
+          <div class="live-photo-card" id="livePhotoToggleCard">
+            <div class="live-photo-meta">
+              <div class="live-photo-heading">
+                <span class="live-photo-glyph">◎</span>
+                <span class="live-photo-label">Live Photo</span>
+              </div>
+              <p class="live-photo-sub">Rekam klip gerak 2 detik ala Apple & photobooth Korea</p>
+            </div>
+            <label class="toggle-switch" for="livePhotoToggle">
+              <input type="checkbox" id="livePhotoToggle" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Shutter Trigger Button -->
+          <div class="shutter-btn-wrapper">
+            <button class="shutter-btn" id="btnShutter">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <span id="shutterBtnText">Mulai Foto (4 Pose)</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- PANEL 2: STUDIO VIEW (Fullscreen Customization & Download) -->
+    <section class="view-panel" id="studioView" aria-label="Photobooth Studio Customization">
+      <!-- Left: Centered Strip Preview Stage -->
+      <div class="studio-preview-section">
+        <div class="studio-preview-column">
+          <!-- Floating Live Playback Bar -->
+          <div class="live-playback-bar" id="livePlaybackBar">
+            <button class="live-play-btn active" id="btnToggleLivePlay"
+              title="Klik untuk putar atau jeda animasi Live Photo">
+              <span class="live-dot"></span>
+              <span id="livePlayBtnLabel">LIVE ON</span>
+            </button>
+            <div class="live-hint-text">
+              <span class="live-hint-icon">✦</span>
+              <span>Hover / sentuh strip untuk melihat foto bergerak</span>
+            </div>
+          </div>
+
+          <div class="strip-canvas-wrapper" id="stripCanvasWrapper"
+            title="Arahkan kursor atau tahan sentuhan untuk memainkan Live Photo">
+            <canvas id="stripCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Studio Customization Sidebar -->
+      <aside class="controls-sidebar studio-sidebar">
+        <!-- Sidebar Header: Studio Title -->
+        <div class="sidebar-header">
+          <div class="brand">
+            <div class="brand-icon">✦</div>
+            <h2 class="brand-title">LUMI STUDIO</h2>
+            <span class="brand-badge">Edit & Unduh</span>
+          </div>
+        </div>
+
+        <!-- Frame Color Customizer -->
+        <div class="control-card">
+          <div class="card-title">
+            <span>Warna Bingkai (Frame)</span>
+          </div>
+          <div class="swatches-grid" id="swatchesGrid">
+            <button class="swatch-btn active swatch-white" data-theme="white" style="background: #ffffff;"
+              title="Classic White"></button>
+            <button class="swatch-btn swatch-black" data-theme="black" style="background: #141416;"
+              title="Noir Black"></button>
+            <button class="swatch-btn" data-theme="pink" style="background: #ffe0e6;" title="Sweet Pink"></button>
+            <button class="swatch-btn" data-theme="lavender" style="background: #ece2fe;" title="Lilac Dream"></button>
+            <button class="swatch-btn" data-theme="matcha" style="background: #e2f0d9;" title="Matcha Cream"></button>
+            <button class="swatch-btn" data-theme="yellow" style="background: #fef3c7;" title="Butter Honey"></button>
+            <button class="swatch-btn" data-theme="y2k" style="background: linear-gradient(135deg, #ff9a9e, #a1c4fd);"
+              title="Y2K Holographic"></button>
+            <button class="swatch-btn swatch-sunset" data-theme="sunset"
+              style="background: linear-gradient(135deg, #f83600, #f9d423);" title="Sunset Glow"></button>
+          </div>
+        </div>
+
+        <!-- Filter Customizer -->
+        <div class="control-card">
+          <div class="card-title">
+            <span>Filter Warna Foto</span>
+          </div>
+          <div class="filters-grid" id="filtersGrid">
+            <button class="filter-btn active" data-filter="normal">
+              <span class="filter-btn-name">Original</span>
+            </button>
+            <button class="filter-btn" data-filter="vintage">
+              <span class="filter-btn-name">90s Film</span>
+            </button>
+            <button class="filter-btn" data-filter="bw">
+              <span class="filter-btn-name">B&W Classic</span>
+            </button>
+            <button class="filter-btn" data-filter="warm">
+              <span class="filter-btn-name">Golden Hour</span>
+            </button>
+            <button class="filter-btn" data-filter="cool">
+              <span class="filter-btn-name">Cool Breeze</span>
+            </button>
+            <button class="filter-btn" data-filter="cyber">
+              <span class="filter-btn-name">Cyberpunk</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sticker Tray -->
+        <div class="control-card">
+          <div class="card-title">
+            <span>Tempel Stiker Lucu</span>
+            <span class="card-title-tag">Klik untuk Menempelkan</span>
+          </div>
+          <div class="stickers-tray" id="stickersTray">
+            <button class="sticker-btn" data-emoji="✨">✨</button>
+            <button class="sticker-btn" data-emoji="💖">💖</button>
+            <button class="sticker-btn" data-emoji="🎀">🎀</button>
+            <button class="sticker-btn" data-emoji="⭐">⭐</button>
+            <button class="sticker-btn" data-emoji="🧸">🧸</button>
+            <button class="sticker-btn" data-emoji="🍒">🍒</button>
+            <button class="sticker-btn" data-emoji="🕶️">🕶️</button>
+            <button class="sticker-btn" data-emoji="🌸">🌸</button>
+            <button class="sticker-btn" data-emoji="✌️">✌️</button>
+            <button class="sticker-btn" data-emoji="👑">👑</button>
+            <button class="sticker-btn" data-emoji="🐱">🐱</button>
+            <button class="sticker-btn" data-emoji="📸">📸</button>
+          </div>
+          <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;" id="stickerCountHint">
+            0 stiker ditempelkan. Klik stiker untuk menambahkan ke strip.
+          </p>
+        </div>
+
+        <!-- Custom Title & Caption -->
+        <div class="control-card">
+          <div class="card-title">
+            <span>Teks & Judul Strip</span>
+          </div>
+          <div class="caption-input-group">
+            <input type="text" class="text-field" id="stripTitleInput" value="PHOTOBOOTH MEMORIES"
+              placeholder="Ketik judul strip foto..." maxlength="32" />
+          </div>
+        </div>
+
+        <!-- Download & Retake Action Buttons -->
+        <div class="studio-actions">
+          <button class="btn-primary" id="btnDownload">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+            </svg>
+            <span>Unduh Foto (PNG HD)</span>
+          </button>
+
+          <!-- Live Photo Export Suite -->
+          <div class="live-export-row" id="liveExportRow">
+            <button class="btn-live-export btn-video" id="btnDownloadVideo"
+              title="Unduh Strip Live Video beresolusi tinggi">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="23 7 16 12 23 17 23 7" />
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+              </svg>
+              <span>Video Live</span>
+            </button>
+            <button class="btn-live-export btn-gif" id="btnDownloadGif"
+              title="Unduh Animasi GIF untuk WhatsApp / Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M10 15V9l5 3-5 3z" />
+              </svg>
+              <span>GIF Animasi</span>
+            </button>
+          </div>
+
+          <button class="btn-secondary" id="btnRetake">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+              <path d="M3 3v5h5" />
+            </svg>
+            <span>Foto Ulang</span>
+          </button>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Export Progress Overlay Modal -->
+    <div class="export-modal-overlay" id="exportModalOverlay">
+      <div class="export-modal-card">
+        <div class="export-modal-spinner"></div>
+        <h3 class="export-modal-title" id="exportModalTitle">Memproses Live Photo...</h3>
+        <p class="export-modal-desc" id="exportModalDesc">Mengompilasi animasi strip bergerak dengan efek & stiker...
+        </p>
+        <div class="export-progress-bar-wrap">
+          <div class="export-progress-bar" id="exportProgressBar" style="width: 0%;"></div>
+        </div>
+        <span class="export-progress-percent" id="exportProgressPercent">0%</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Main JS Application Entry Point -->
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+
+</html>
