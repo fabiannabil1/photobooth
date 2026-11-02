@@ -97,7 +97,6 @@ json.dump(manifest, open(f"{ROOT}/src/js/promahaStickers.json", "w"), indent=1)
 # --- UI ------------------------------------------------------------------------------------------
 fit(Image.open(f"{A}/logo.png"), 160).save(f"{PUB}/brand/logo.webp", "WEBP", quality=92, alpha_quality=100, method=6)
 fit(Image.open(f"{A}/maskot_stand.png"), 760).save(f"{PUB}/brand/maskot.webp", "WEBP", quality=92, alpha_quality=100, method=6)
-fit(Image.open(f"{A}/maskot_stand_flip.png"), 760).save(f"{PUB}/brand/maskot-flip.webp", "WEBP", quality=92, alpha_quality=100, method=6)
 
 # --- Virtual background ---------------------------------------------------------------------------
 BW, BH = 1920, 1080

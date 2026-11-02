@@ -41,7 +41,7 @@
      "size": 26.0,
      "color": "#FFFFFF",
      "align": "left",
-     "maxWidth": 308.8,
+     "maxWidth": 341.7,
      "lines": 2
     },
     "date": {
@@ -89,7 +89,7 @@
      "size": 37.7,
      "color": "#FFFFFF",
      "align": "left",
-     "maxWidth": 844.7,
+     "maxWidth": 910.2,
      "lines": 2
     },
     "date": {
@@ -119,7 +119,7 @@
      "size": 29.9,
      "color": "#FFFFFF",
      "align": "left",
-     "maxWidth": 498.8,
+     "maxWidth": 549.0,
      "lines": 2
     },
     "date": {
@@ -174,7 +174,7 @@
      "size": 25.0,
      "color": "#F2B441",
      "align": "left",
-     "maxWidth": 272.5,
+     "maxWidth": 309.9,
      "lines": 3,
      "font": "mono"
     },
@@ -224,7 +224,7 @@
      "size": 36.2,
      "color": "#F2B441",
      "align": "left",
-     "maxWidth": 810.8,
+     "maxWidth": 865.1,
      "lines": 3,
      "font": "mono"
     },
@@ -256,7 +256,7 @@
      "size": 28.7,
      "color": "#F2B441",
      "align": "left",
-     "maxWidth": 470.2,
+     "maxWidth": 513.2,
      "lines": 3,
      "font": "mono"
     },
@@ -712,7 +712,7 @@
      "size": 23.0,
      "color": "#0E1F4D",
      "align": "left",
-     "maxWidth": 362.6,
+     "maxWidth": 368.0,
      "lines": 2
     },
     "date": {
@@ -760,7 +760,7 @@
      "size": 33.4,
      "color": "#0E1F4D",
      "align": "left",
-     "maxWidth": 910.5,
+     "maxWidth": 934.5,
      "lines": 2
     },
     "date": {
@@ -790,7 +790,7 @@
      "size": 26.4,
      "color": "#0E1F4D",
      "align": "left",
-     "maxWidth": 544.4,
+     "maxWidth": 560.7,
      "lines": 2
     },
     "date": {

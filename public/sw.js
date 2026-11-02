@@ -1,5 +1,5 @@
 // Promaha Booth Progressive Web App Service Worker
-const CACHE_NAME = 'promaha-booth-v1';
+const CACHE_NAME = 'promaha-booth-v2';
 
 const STATIC_PRECACHE = [
   './',
@@ -52,7 +52,6 @@ const STATIC_PRECACHE = [
   './stickers/lidah-buaya.webp',
   './brand/logo.webp',
   './brand/maskot.webp',
-  './brand/maskot-flip.webp',
   './backgrounds/promaha-backdrop.jpg',
   './backgrounds/promaha-desa.jpg',
   './backgrounds/promaha-dinding.jpg'

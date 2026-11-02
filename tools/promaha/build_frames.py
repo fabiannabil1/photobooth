@@ -39,6 +39,7 @@ class Doc:
         self.w, self.h = w, h
         self.under, self.over = [], []
         self.cur = self.under
+        self.mascots = []
 
     def top(self):
         self.cur = self.over
@@ -69,6 +70,9 @@ class Doc:
             path = f"{A}/{path}.png"
         iw, ih = size_of(path)
         scale = 100 * (w / iw if w else h / ih)
+        if "maskot" in os.path.basename(path):
+            bw, bh = iw * scale / 100, ih * scale / 100
+            self.mascots.append((cx - bw / 2, cy - bh / 2, cx + bw / 2, cy + bh / 2))
         self.cmd("file.placeEmbedded", path=path, scale=round(scale, 3), center=[cx, cy], fit=False)
         self.cmd("layer.setProps", name=name or os.path.basename(path).split(".")[0])
         if rot:
@@ -189,11 +193,11 @@ def f_pantau(layout):
     for s in S:
         d.rect(s["x"] - 3, s["y"] - 3, s["w"] + 6, s["h"] + 6, None, r=r + 3, stroke=GOLD, sw=3, name="bingkai emas")
     fy = H - bottom
-    mh = bottom + 30 * u
-    d.bottom_img("maskot_stand_dc", W - side - mh * 0.33, H - 46 * u + 8, h=mh - 40 * u, shadow=45, name="maskot")
+    mh = bottom - 54 * u
+    d.bottom_img("maskot_stand_dc", W - side - mh * 0.4, H - 46 * u + 8, h=mh, shadow=45, name="maskot")
     d.rect(0, H - 44 * u, W, 44 * u, LIME, name="pita lime")
     d.text(W / 2, H - 15 * u, "Pantau bersama, desa sehat!", 19 * u, NAVY, 700, "center", name="slogan")
-    title_w = W - side * 2 - mh * 0.72
+    title_w = W - side * 2 - mh * 0.82
     return d, S, r, dict(
         title=dict(x=side, y=fy + 58 * u, size=26 * u, color=WHITE, align="left", maxWidth=title_w, lines=2),
         date=dict(x=side, y=fy + 132 * u, size=15 * u, color=LIME, align="left"),
@@ -265,7 +269,8 @@ def f_toga(layout):
         d.img("tape", s["x"] + s["w"] / 2 + (-16 if i % 2 else 16) * u, s["y"] - 4 * u, w=92 * u, rot=-4 if i % 2 else 3, opacity=0.92, name="selotip")
     d.bottom_img("fg_vine", 16 * u, top + 200 * u, h=270 * u, shadow=25, name="sulur telang")
     d.bottom_img("fg_vine_flip", W - 18 * u, H - bottom * 0.64, h=280 * u, shadow=25, name="sulur telang")
-    d.img("maskot_head", W - 92 * u, top * 0.52, w=170 * u, shadow=45, name="kepala maskot")
+    head_h = top * 0.88
+    d.img("maskot_head", W - side - head_h * 0.62, top * 0.47, h=head_h, shadow=45, name="kepala maskot")
     shelf = H - 44 * u
     d.rect(-6, shelf, W + 12, 30 * u, "#B56A35", r=5 * u, stroke=NAVY, sw=4 * u, name="papan kayu")
     d.rect(-6, shelf + 30 * u, W + 12, 18 * u, "#0B3A22", name="bayangan papan")
@@ -345,7 +350,7 @@ def f_film(layout):
         n = i + 1
         d.text(s["x"] + 6 * u, s["y"] + s["h"] - 8 * u, f"▶ {n}A", 13 * u, AMBER, 700, font=mono, name=f"nomor {n}")
     fy = H - bottom
-    mh = bottom + 36 * u
+    mh = bottom - 16 * u
     d.bottom_img("maskot_kamera_dc", W - pad - mh * 0.34 - 6 * u, H - 8 * u, h=mh, shadow=55, name="maskot kamera")
     return d, S, r, dict(
         title=dict(x=lx, y=fy + 62 * u, size=25 * u, color=AMBER, align="left", maxWidth=W - pad * 2 - mh * 0.72, lines=3, font="mono"),
@@ -386,8 +391,8 @@ def f_expo(layout):
     d.cover(f"{A}/expo_scene.jpg", 0, round(H - band - sh), W, round(sh), name="pemandangan desa")
     d.rect(0, H - band, W, band, BLUE, name="pita biru")
     d.text(W / 2, H - band / 2 + 6 * u, "3 NOVEMBER 2026  ·  UNIVERSITAS JEMBER", 15 * u, WHITE, 700, "center", name="tanggal acara")
-    mh = bottom * 0.88
-    d.bottom_img("maskot_stand", W - side - mh * 0.3, H - band - 2, h=mh, shadow=40, name="maskot")
+    mh = bottom - band - 12 * u
+    d.bottom_img("maskot_stand", W - side - mh * 0.4, H - band - 2, h=mh, shadow=40, name="maskot")
     fy = H - bottom
     return d, S, r, dict(
         title=dict(x=side, y=fy + 48 * u, size=23 * u, color=NAVY, align="left", maxWidth=W - side * 2 - mh * 0.68, lines=2),
@@ -421,6 +426,11 @@ def run(steps, new, out):
 def build(fid, name, fn, bg, layout):
     d, S, r, text, extras = fn(layout)
     W, H = d.w, d.h
+    # Maskot tidak boleh menimpa slot foto
+    for x0, y0, x1, y1 in d.mascots:
+        for s in S:
+            if x0 < s["x"] + s["w"] and x1 > s["x"] and y0 < s["y"] + s["h"] and y1 > s["y"]:
+                raise RuntimeError(f"{fid}-{layout}: maskot menimpa foto")
     d.cur = d.under
     for s, x, y, size, col in extras:
         d.text(x, y, s, size, col, 600)

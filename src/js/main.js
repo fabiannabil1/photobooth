@@ -43,7 +43,6 @@ const stripCanvas = document.getElementById('stripCanvas');
 const stripCanvasWrapper = document.getElementById('stripCanvasWrapper');
 const swatchesGrid = document.getElementById('swatchesGrid');
 const framesGrid = document.getElementById('framesGrid');
-const mascotButtons = document.querySelectorAll('.mascot-btn');
 const btnStickerUndo = document.getElementById('btnStickerUndo');
 const filtersGrid = document.getElementById('filtersGrid');
 const stickersTray = document.getElementById('stickersTray');
@@ -100,8 +99,7 @@ async function initApp() {
   buildStickerTray();
   setupEventListeners();
 
-  // Maskot ikut berdiri di kamera sejak awal, frame dimuat lebih dulu agar studio langsung siap
-  segmenter.setMascot('right');
+  // Frame dimuat lebih dulu agar studio langsung siap
   stripRenderer.preloadFrames(state.currentMode);
   stripRenderer.onAssetReady = () => {
     if (studioView.classList.contains('active') && !state.liveAnimId) updateStudioPreview(false);
@@ -268,15 +266,6 @@ function setupEventListeners() {
       timerButtons.forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       state.timerSeconds = parseInt(btn.dataset.timer, 10);
-    });
-  });
-
-  // 9b. Maskot ikut foto
-  mascotButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      mascotButtons.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      segmenter.setMascot(btn.dataset.side);
     });
   });
 
