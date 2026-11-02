@@ -1,5 +1,5 @@
-// Lumi Booth Progressive Web App Service Worker
-const CACHE_NAME = 'lumi-booth-v1';
+// Promaha Booth Progressive Web App Service Worker
+const CACHE_NAME = 'promaha-booth-v1';
 
 const STATIC_PRECACHE = [
   './',
@@ -15,7 +15,47 @@ const STATIC_PRECACHE = [
   './backgrounds/cafe.jpg',
   './backgrounds/sunset.jpg',
   './backgrounds/penthouse.jpg',
-  './backgrounds/y2k.jpg'
+  './backgrounds/y2k.jpg',
+  './frames/pantau-4-cut.webp',
+  './frames/pantau-grid-2x2.webp',
+  './frames/pantau-single.webp',
+  './frames/film-4-cut.webp',
+  './frames/film-grid-2x2.webp',
+  './frames/film-single.webp',
+  './frames/desa-4-cut.webp',
+  './frames/desa-grid-2x2.webp',
+  './frames/desa-single.webp',
+  './frames/toga-4-cut.webp',
+  './frames/toga-grid-2x2.webp',
+  './frames/toga-single.webp',
+  './frames/bloom-4-cut.webp',
+  './frames/bloom-grid-2x2.webp',
+  './frames/bloom-single.webp',
+  './frames/expo-4-cut.webp',
+  './frames/expo-grid-2x2.webp',
+  './frames/expo-single.webp',
+  './stickers/maskot.webp',
+  './stickers/maskot-kamera.webp',
+  './stickers/maskot-kepala.webp',
+  './stickers/maskot-sepeda.webp',
+  './stickers/logo.webp',
+  './stickers/halo.webp',
+  './stickers/sehat.webp',
+  './stickers/pantau.webp',
+  './stickers/aplikasi.webp',
+  './stickers/kaki.webp',
+  './stickers/aloebite.webp',
+  './stickers/blue-bloom.webp',
+  './stickers/kader.webp',
+  './stickers/toga.webp',
+  './stickers/telang.webp',
+  './stickers/lidah-buaya.webp',
+  './brand/logo.webp',
+  './brand/maskot.webp',
+  './brand/maskot-flip.webp',
+  './backgrounds/promaha-backdrop.jpg',
+  './backgrounds/promaha-desa.jpg',
+  './backgrounds/promaha-dinding.jpg'
 ];
 
 // Install: Cache core app shell

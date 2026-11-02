@@ -1,13 +1,13 @@
 {
-  "name": "Lumi Booth - Virtual Photobooth",
-  "short_name": "LumiBooth",
-  "description": "Web Photobooth modern dengan penggantian background AI real-time, strip foto 4-cut, dan Live Photo GIF.",
+  "name": "Promaha Booth - Photobooth Promahadesa Kamal",
+  "short_name": "Promaha Booth",
+  "description": "Photobooth Promahadesa Kamal: frame dan strip foto Kader PANTAU, maskot, stiker, dan background desa.",
   "start_url": "./",
   "scope": "./",
   "id": "./",
   "display": "standalone",
-  "background_color": "#090a0f",
-  "theme_color": "#090a0f",
+  "background_color": "#0E1F4D",
+  "theme_color": "#0E1F4D",
   "orientation": "any",
   "categories": [
     "photo",

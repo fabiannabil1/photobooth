@@ -1,10 +1,11 @@
-// Main Application Controller for Lumi Booth
+// Main Application Controller for Promaha Booth
 import '../style.css';
 import confetti from 'canvas-confetti';
 import { CameraManager } from './camera.js';
 import { BackgroundSegmenter } from './segmenter.js';
 import { CaptureManager } from './capture.js';
-import { StripRenderer, FRAME_THEMES, PHOTO_FILTERS } from './stripRenderer.js';
+import { StripRenderer, PROMAHA_FRAMES, DEFAULT_STRIP_TITLE } from './stripRenderer.js';
+import promahaStickers from './promahaStickers.json';
 import { playChime } from './audio.js';
 import { initPWA } from './pwa.js';
 
@@ -41,6 +42,9 @@ const shutterBtnText = document.getElementById('shutterBtnText');
 const stripCanvas = document.getElementById('stripCanvas');
 const stripCanvasWrapper = document.getElementById('stripCanvasWrapper');
 const swatchesGrid = document.getElementById('swatchesGrid');
+const framesGrid = document.getElementById('framesGrid');
+const mascotButtons = document.querySelectorAll('.mascot-btn');
+const btnStickerUndo = document.getElementById('btnStickerUndo');
 const filtersGrid = document.getElementById('filtersGrid');
 const stickersTray = document.getElementById('stickersTray');
 const stickerCountHint = document.getElementById('stickerCountHint');
@@ -76,9 +80,9 @@ const state = {
 
   // Studio customization state
   capturedSnapshots: [],
-  selectedTheme: 'white',
+  selectedTheme: 'pantau',
   selectedFilter: 'normal',
-  stripTitle: 'PHOTOBOOTH MEMORIES',
+  stripTitle: DEFAULT_STRIP_TITLE,
   stickers: [],
 };
 
@@ -93,7 +97,19 @@ const stripRenderer = new StripRenderer();
 // ============================================================================
 async function initApp() {
   initPWA();
+  buildStickerTray();
   setupEventListeners();
+
+  // Maskot ikut berdiri di kamera sejak awal, frame dimuat lebih dulu agar studio langsung siap
+  segmenter.setMascot('right');
+  stripRenderer.preloadFrames(state.currentMode);
+  stripRenderer.onAssetReady = () => {
+    if (studioView.classList.contains('active') && !state.liveAnimId) updateStudioPreview(false);
+  };
+  // Teks pada canvas baru memakai Montserrat setelah fontnya selesai dimuat
+  document.fonts?.ready.then(() => {
+    if (studioView.classList.contains('active') && !state.liveAnimId) updateStudioPreview(false);
+  });
 
   // 1. Initialize MediaPipe
   segmenter.init().then(() => {
@@ -236,6 +252,7 @@ function setupEventListeners() {
       modeButtons.forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       state.currentMode = btn.dataset.mode;
+      stripRenderer.preloadFrames(state.currentMode);
 
       if (state.currentMode === 'single') {
         shutterBtnText.textContent = 'Mulai Foto (1 Pose)';
@@ -254,6 +271,15 @@ function setupEventListeners() {
     });
   });
 
+  // 9b. Maskot ikut foto
+  mascotButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      mascotButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      segmenter.setMascot(btn.dataset.side);
+    });
+  });
+
   // 10. Shutter Button
   btnShutter.addEventListener('click', () => {
     triggerCaptureSession();
@@ -264,10 +290,15 @@ function setupEventListeners() {
     const btn = e.target.closest('.swatch-btn');
     if (!btn) return;
 
-    document.querySelectorAll('.swatch-btn').forEach((s) => s.classList.remove('active'));
-    btn.classList.add('active');
-    state.selectedTheme = btn.dataset.theme;
-    updateStudioPreview();
+    selectTheme(btn, btn.dataset.theme);
+  });
+
+  // 11b. Studio View: Frame Promahadesa
+  framesGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.frame-btn');
+    if (!btn) return;
+
+    selectTheme(btn, btn.dataset.frame);
   });
 
   // 12. Studio View: Photo Filters
@@ -286,19 +317,30 @@ function setupEventListeners() {
     const btn = e.target.closest('.sticker-btn');
     if (!btn) return;
 
-    const emoji = btn.dataset.emoji;
-    addSticker(emoji);
+    if (btn.dataset.stickerId) {
+      addImageSticker(promahaStickers.find((x) => x.id === btn.dataset.stickerId));
+    } else {
+      addSticker(btn.dataset.emoji);
+    }
   });
+
+  btnStickerUndo.addEventListener('click', () => {
+    state.stickers.pop();
+    refreshStickerHint();
+    updateStudioPreview();
+  });
+
+  setupStickerDrag();
 
   // 14. Title input change
   stripTitleInput.addEventListener('input', (e) => {
-    state.stripTitle = e.target.value.trim() || 'PHOTOBOOTH MEMORIES';
+    state.stripTitle = e.target.value.trim() || DEFAULT_STRIP_TITLE;
     updateStudioPreview(state.isLivePlaying || state.isHoverPlaying);
   });
 
   // 15. Download Strip (PNG)
   btnDownload.addEventListener('click', () => {
-    const filename = `lumibooth-${state.currentMode}-${Date.now()}.png`;
+    const filename = `promaha-booth-${state.currentMode}-${Date.now()}.png`;
     stripRenderer.download(filename);
   });
 
@@ -349,7 +391,7 @@ function setupEventListeners() {
       startLivePlayback(false);
       await stripRenderer.exportVideo({
         durationMs: 2800,
-        filename: `lumibooth-live-${Date.now()}.mp4`,
+        filename: `promaha-booth-live-${Date.now()}.mp4`,
         onProgress: (p) => updateExportProgress(p),
       });
     } catch (err) {
@@ -369,7 +411,7 @@ function setupEventListeners() {
         fps: 10,
         durationMs: 2400,
         scale: 0.45,
-        filename: `lumibooth-live-${Date.now()}.gif`,
+        filename: `promaha-booth-live-${Date.now()}.gif`,
         onProgress: (p) => updateExportProgress(p),
       });
     } catch (err) {
@@ -390,7 +432,7 @@ function setupEventListeners() {
     });
     state.capturedSnapshots = [];
     state.stickers = [];
-    stickerCountHint.textContent = '0 stiker ditempelkan. Klik stiker untuk menambahkan ke strip.';
+    refreshStickerHint();
 
     studioView.classList.remove('active');
     captureView.classList.add('active');
@@ -484,6 +526,8 @@ function updateShotDots(currentShot, total) {
 function openStudioView() {
   captureView.classList.remove('active');
   studioView.classList.add('active');
+  studioView.dataset.layout = state.currentMode;
+  renderFramePicker();
 
   // Trigger celebration audio & confetti
   playChime();
@@ -491,7 +535,7 @@ function openStudioView() {
     particleCount: 80,
     spread: 70,
     origin: { y: 0.6 },
-    colors: ['#a855f7', '#ec4899', '#fef08a', '#60a5fa'],
+    colors: ['#A8CF45', '#2747C7', '#D9B24C', '#FFF8E7', '#3C8D2F'],
   });
 
   const hasLive = hasLiveVideos();
@@ -635,8 +679,114 @@ function addSticker(emoji) {
   };
 
   state.stickers.push(newSticker);
-  stickerCountHint.textContent = `${state.stickers.length} stiker ditempelkan.`;
+  refreshStickerHint();
   updateStudioPreview();
+}
+
+function refreshStickerHint() {
+  stickerCountHint.textContent = state.stickers.length
+    ? `${state.stickers.length} stiker ditempelkan. Seret untuk memindahkan.`
+    : '0 stiker ditempelkan. Klik stiker untuk menambahkan ke strip.';
+  stripCanvas.classList.toggle('has-stickers', state.stickers.length > 0);
+}
+
+// Stiker gambar Promahadesa muncul di area bawah strip supaya tidak menutup wajah, lalu bisa diseret
+function addImageSticker(sticker) {
+  if (state.stickers.length >= 12) {
+    alert('Maksimal 12 stiker!');
+    return;
+  }
+  const widthByMode = { '4-cut': 0.3, 'grid-2x2': 0.18, single: 0.26 };
+  const slot = state.stickers.length % 3;
+  state.stickers.push({
+    src: sticker.src,
+    aspect: sticker.height / sticker.width,
+    relW: widthByMode[state.currentMode] || 0.26,
+    relX: 0.2 + slot * 0.3,
+    relY: state.currentMode === '4-cut' ? 0.74 : 0.6,
+    rotation: (Math.random() - 0.5) * 12,
+  });
+  refreshStickerHint();
+  updateStudioPreview(state.isLivePlaying || state.isHoverPlaying);
+}
+
+function buildStickerTray() {
+  const label = document.createElement('span');
+  label.className = 'sticker-group-label';
+  label.textContent = 'Promahadesa';
+  const fragment = document.createDocumentFragment();
+  fragment.appendChild(label);
+  promahaStickers.forEach((sticker) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'sticker-btn sticker-image';
+    btn.dataset.stickerId = sticker.id;
+    btn.title = sticker.label;
+    btn.setAttribute('aria-label', `Stiker ${sticker.label}`);
+    const img = document.createElement('img');
+    img.src = sticker.src;
+    img.alt = '';
+    btn.appendChild(img);
+    fragment.appendChild(btn);
+  });
+  stickersTray.prepend(fragment);
+}
+
+function selectTheme(btn, themeId) {
+  document.querySelectorAll('.swatch-btn, .frame-btn').forEach((b) => b.classList.remove('active'));
+  btn.classList.add('active');
+  state.selectedTheme = themeId;
+  updateStudioPreview(state.isLivePlaying || state.isHoverPlaying);
+}
+
+// Pilihan frame mengikuti layout sesi foto yang baru selesai
+function renderFramePicker() {
+  framesGrid.innerHTML = '';
+  Object.values(PROMAHA_FRAMES).forEach((frame) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `frame-btn${frame.id === state.selectedTheme ? ' active' : ''}`;
+    btn.dataset.frame = frame.id;
+    const img = document.createElement('img');
+    img.src = frame.layouts[state.currentMode].src;
+    img.alt = '';
+    img.style.background = '#8796B4';
+    const name = document.createElement('span');
+    name.textContent = frame.name;
+    btn.append(img, name);
+    framesGrid.appendChild(btn);
+  });
+}
+
+function setupStickerDrag() {
+  let dragged = null;
+  const toRel = (e) => {
+    const box = stripCanvas.getBoundingClientRect();
+    return {
+      x: (e.clientX - box.left) / box.width,
+      y: (e.clientY - box.top) / box.height,
+    };
+  };
+  stripCanvas.addEventListener('pointerdown', (e) => {
+    const { x, y } = toRel(e);
+    dragged = stripRenderer.hitSticker(state.stickers, x, y);
+    if (dragged) {
+      stripCanvas.setPointerCapture(e.pointerId);
+      e.stopPropagation();
+    }
+  });
+  stripCanvas.addEventListener('pointermove', (e) => {
+    if (!dragged) return;
+    const { x, y } = toRel(e);
+    dragged.relX = Math.max(0, Math.min(1, x));
+    dragged.relY = Math.max(0, Math.min(1, y));
+    if (!state.liveAnimId) updateStudioPreview(false);
+  });
+  const endDrag = () => {
+    dragged = null;
+  };
+  stripCanvas.addEventListener('pointerup', endDrag);
+  stripCanvas.addEventListener('pointercancel', endDrag);
 }
 
 // Start app on DOMContentLoaded

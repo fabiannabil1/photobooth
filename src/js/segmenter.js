@@ -38,6 +38,11 @@ export class BackgroundSegmenter {
     this.presetImage = null;
 
     this.isMirrored = true;
+
+    // Maskot Promahadesa yang ikut berdiri di foto: 'off' | 'left' | 'right'
+    this.mascotSide = 'off';
+    this.mascotImages = {};
+
     this.selfieSegmentation = null;
     this.isModelLoaded = false;
     this.isProcessing = false;
@@ -140,6 +145,29 @@ export class BackgroundSegmenter {
     }
   }
 
+  setMascot(side) {
+    this.mascotSide = side;
+    if (side === 'off' || this.mascotImages[side]) return;
+    const img = new Image();
+    // Di sisi kanan tangan yang melambai menghadap ke tengah; sisi kiri memakai versi cermin
+    img.src = side === 'left' ? './brand/maskot-flip.webp' : './brand/maskot.webp';
+    this.mascotImages[side] = img;
+  }
+
+  // Selalu digambar tanpa efek cermin. Posisi di 0.27/0.73 lebar supaya tetap masuk slot foto yang dipotong tengah.
+  drawMascot() {
+    const img = this.mascotImages[this.mascotSide];
+    if (this.mascotSide === 'off' || !img?.complete || !img.naturalWidth) return;
+    const { width, height } = this.outputCanvas;
+    const h = height * 0.5;
+    const w = h * (img.naturalWidth / img.naturalHeight);
+    const cx = width * (this.mascotSide === 'left' ? 0.27 : 0.73);
+    this.ctx.save();
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.drawImage(img, cx - w / 2, height - h + height * 0.01, w, h);
+    this.ctx.restore();
+  }
+
   setMirrored(mirrored) {
     this.isMirrored = mirrored;
   }
@@ -208,6 +236,7 @@ export class BackgroundSegmenter {
 
     this.ctx.drawImage(this.videoElement, 0, 0, width, height);
     this.ctx.restore();
+    this.drawMascot();
   }
 
   /**
@@ -283,6 +312,7 @@ export class BackgroundSegmenter {
     if (this.mode === 'none') {
       this.ctx.drawImage(results.image, 0, 0, width, height);
       this.ctx.restore();
+      this.drawMascot();
       this.updateFps();
       return;
     }
@@ -303,15 +333,18 @@ export class BackgroundSegmenter {
     // 4. Draw virtual background behind the person
     this.ctx.globalCompositeOperation = 'destination-over';
 
+    // Maskot di belakang orang tetapi di depan background
+    this.drawMascot();
+
     if (this.mode === 'blur-light' || this.mode === 'blur-heavy') {
       const blurPx = this.mode === 'blur-heavy' ? 20 : 8;
       this.ctx.filter = `blur(${blurPx}px)`;
       this.ctx.drawImage(results.image, 0, 0, width, height);
       this.ctx.filter = 'none';
     } else if (this.mode === 'preset' && this.presetImage) {
-      drawCoverImage(this.ctx, this.presetImage, width, height);
+      this.drawUnmirroredBackground(this.presetImage, width, height);
     } else if (this.mode === 'custom' && this.customImage) {
-      drawCoverImage(this.ctx, this.customImage, width, height);
+      this.drawUnmirroredBackground(this.customImage, width, height);
     } else {
       // Fallback: draw video
       this.ctx.drawImage(results.image, 0, 0, width, height);
@@ -319,6 +352,14 @@ export class BackgroundSegmenter {
 
     this.ctx.restore();
     this.updateFps();
+  }
+
+  // Tulisan dan logo pada background tetap terbaca walau kamera dicerminkan
+  drawUnmirroredBackground(img, width, height) {
+    this.ctx.save();
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    drawCoverImage(this.ctx, img, width, height);
+    this.ctx.restore();
   }
 
   updateFps() {

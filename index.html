@@ -4,18 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bibooth - By Mas Bian</title>
+  <title>Promaha Booth - By Mas Bian</title>
   <meta name="description"
-    content="Web Photobooth modern dengan penggantian background AI real-time ala Google Meet, strip foto 4-cut Life4Cuts, filter warna, stiker, dan unduh resolusi tinggi." />
+    content="Photobooth Promahadesa Kamal, Universitas Jember 2026: frame dan strip foto bertema Kader PANTAU, maskot, stiker, dan background desa." />
   <link rel="icon" type="image/svg+xml" href="./icons/favicon.svg" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
   <link rel="manifest" href="./manifest.webmanifest" />
-  <meta name="theme-color" content="#090a0f" />
+  <meta name="theme-color" content="#0E1F4D" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="LumiBooth" />
+  <meta name="apple-mobile-web-app-title" content="Promaha Booth" />
   <link rel="stylesheet" href="./src/style.css" />
 
   <!-- MediaPipe Selfie Segmentation -->
@@ -78,8 +78,11 @@
         <!-- Sidebar Header: Brand -->
         <div class="sidebar-header">
           <div class="brand">
-            <div class="brand-icon">✦</div>
-            <h1 class="brand-title">LUMI BOOTH</h1>
+            <img class="brand-logo" src="./brand/logo.webp" alt="Logo Promaha Desa Kamal" />
+            <div>
+              <h1 class="brand-title">PROMAHA BOOTH</h1>
+              <span class="brand-sub">Promahadesa Kamal 2026</span>
+            </div>
           </div>
           <button id="btnInstallApp" class="btn-install-pwa" style="display: none;" title="Pasang Aplikasi (PWA)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -89,6 +92,12 @@
             </svg>
             <span>Install</span>
           </button>
+        </div>
+
+        <!-- Sapaan Maskot -->
+        <div class="mascot-greeting">
+          <img src="./brand/maskot.webp" alt="Maskot Promahadesa Kamal" />
+          <p class="mascot-bubble">Halo! Aku maskot Promahadesa Kamal. Yuk foto bareng. Pantau bersama, desa sehat!</p>
         </div>
 
         <!-- Background Options (Meet Style) -->
@@ -134,6 +143,18 @@
           <!-- Tab Content: Presets -->
           <div class="bg-tab-content" id="tab-presets">
             <div class="bg-presets-grid" id="presetsGrid">
+              <div class="bg-preset-item" data-preset="./backgrounds/promaha-backdrop.jpg">
+                <img src="./backgrounds/promaha-backdrop.jpg" alt="Backdrop resmi Promahadesa" />
+                <span class="bg-preset-name">Backdrop Resmi</span>
+              </div>
+              <div class="bg-preset-item" data-preset="./backgrounds/promaha-desa.jpg">
+                <img src="./backgrounds/promaha-desa.jpg" alt="Panorama Desa Kamal" />
+                <span class="bg-preset-name">Desa Kamal</span>
+              </div>
+              <div class="bg-preset-item" data-preset="./backgrounds/promaha-dinding.jpg">
+                <img src="./backgrounds/promaha-dinding.jpg" alt="Dinding logo Promaha" />
+                <span class="bg-preset-name">Dinding Logo</span>
+              </div>
               <div class="bg-preset-item" data-preset="./backgrounds/studio.jpg">
                 <img src="./backgrounds/studio.jpg" alt="Minimalist Studio" />
                 <span class="bg-preset-name">Studio</span>
@@ -219,6 +240,17 @@
             </div>
           </div>
 
+          <!-- Foto Bareng Maskot -->
+          <div class="mascot-selector">
+            <span class="mascot-label">Maskot:</span>
+            <div class="mascot-options">
+              <button class="mascot-btn" data-side="off">Tanpa</button>
+              <button class="mascot-btn" data-side="left">Kiri</button>
+              <button class="mascot-btn active" data-side="right">Kanan</button>
+            </div>
+          </div>
+          <p class="mascot-label-hint">Maskot ikut berdiri di foto, di belakangmu kalau background virtual aktif.</p>
+
           <!-- Live Photo Toggle Switch -->
           <div class="live-photo-card" id="livePhotoToggleCard">
             <div class="live-photo-meta">
@@ -252,6 +284,7 @@
     <section class="view-panel" id="studioView" aria-label="Photobooth Studio Customization">
       <!-- Left: Centered Strip Preview Stage -->
       <div class="studio-preview-section">
+        <img class="studio-mascot" src="./brand/maskot.webp" alt="" />
         <div class="studio-preview-column">
           <!-- Floating Live Playback Bar -->
           <div class="live-playback-bar" id="livePlaybackBar">
@@ -278,19 +311,27 @@
         <!-- Sidebar Header: Studio Title -->
         <div class="sidebar-header">
           <div class="brand">
-            <div class="brand-icon">✦</div>
-            <h2 class="brand-title">LUMI STUDIO</h2>
+            <img class="brand-logo" src="./brand/logo.webp" alt="" />
+            <h2 class="brand-title">PROMAHA STUDIO</h2>
             <span class="brand-badge">Edit & Unduh</span>
           </div>
+        </div>
+
+        <!-- Frame Promahadesa -->
+        <div class="control-card">
+          <div class="card-title">
+            <span>Frame Promahadesa</span>
+          </div>
+          <div class="frames-grid" id="framesGrid"></div>
         </div>
 
         <!-- Frame Color Customizer -->
         <div class="control-card">
           <div class="card-title">
-            <span>Warna Bingkai (Frame)</span>
+            <span>Atau Warna Polos</span>
           </div>
           <div class="swatches-grid" id="swatchesGrid">
-            <button class="swatch-btn active swatch-white" data-theme="white" style="background: #ffffff;"
+            <button class="swatch-btn swatch-white" data-theme="white" style="background: #ffffff;"
               title="Classic White"></button>
             <button class="swatch-btn swatch-black" data-theme="black" style="background: #141416;"
               title="Noir Black"></button>
@@ -335,10 +376,11 @@
         <!-- Sticker Tray -->
         <div class="control-card">
           <div class="card-title">
-            <span>Tempel Stiker Lucu</span>
-            <span class="card-title-tag">Klik untuk Menempelkan</span>
+            <span>Tempel Stiker</span>
+            <span class="card-title-tag">Klik, lalu seret</span>
           </div>
           <div class="stickers-tray" id="stickersTray">
+            <span class="sticker-group-label">Emoji</span>
             <button class="sticker-btn" data-emoji="✨">✨</button>
             <button class="sticker-btn" data-emoji="💖">💖</button>
             <button class="sticker-btn" data-emoji="🎀">🎀</button>
@@ -352,9 +394,10 @@
             <button class="sticker-btn" data-emoji="🐱">🐱</button>
             <button class="sticker-btn" data-emoji="📸">📸</button>
           </div>
-          <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;" id="stickerCountHint">
-            0 stiker ditempelkan. Klik stiker untuk menambahkan ke strip.
-          </p>
+          <div class="sticker-actions">
+            <p id="stickerCountHint">0 stiker ditempelkan. Klik stiker untuk menambahkan ke strip.</p>
+            <button class="btn-sticker-undo" id="btnStickerUndo" type="button">Hapus terakhir</button>
+          </div>
         </div>
 
         <!-- Custom Title & Caption -->
@@ -363,7 +406,7 @@
             <span>Teks & Judul Strip</span>
           </div>
           <div class="caption-input-group">
-            <input type="text" class="text-field" id="stripTitleInput" value="PHOTOBOOTH MEMORIES"
+            <input type="text" class="text-field" id="stripTitleInput" value="PANTAU BERSAMA, DESA SEHAT!"
               placeholder="Ketik judul strip foto..." maxlength="32" />
           </div>
         </div>

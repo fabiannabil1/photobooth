@@ -1,0 +1,114 @@
+[
+ {
+  "id": "maskot",
+  "label": "Maskot",
+  "src": "./stickers/maskot.webp",
+  "width": 287,
+  "height": 360
+ },
+ {
+  "id": "maskot-kamera",
+  "label": "Maskot Kamera",
+  "src": "./stickers/maskot-kamera.webp",
+  "width": 287,
+  "height": 360
+ },
+ {
+  "id": "maskot-kepala",
+  "label": "Kepala Maskot",
+  "src": "./stickers/maskot-kepala.webp",
+  "width": 360,
+  "height": 294
+ },
+ {
+  "id": "maskot-sepeda",
+  "label": "Maskot Sepeda",
+  "src": "./stickers/maskot-sepeda.webp",
+  "width": 344,
+  "height": 360
+ },
+ {
+  "id": "logo",
+  "label": "Logo Promaha",
+  "src": "./stickers/logo.webp",
+  "width": 360,
+  "height": 357
+ },
+ {
+  "id": "halo",
+  "label": "Halo!",
+  "src": "./stickers/halo.webp",
+  "width": 360,
+  "height": 119
+ },
+ {
+  "id": "sehat",
+  "label": "Desa Sehat",
+  "src": "./stickers/sehat.webp",
+  "width": 360,
+  "height": 169
+ },
+ {
+  "id": "pantau",
+  "label": "Pantau Bersama",
+  "src": "./stickers/pantau.webp",
+  "width": 360,
+  "height": 129
+ },
+ {
+  "id": "aplikasi",
+  "label": "Aplikasi PANTAU",
+  "src": "./stickers/aplikasi.webp",
+  "width": 184,
+  "height": 360
+ },
+ {
+  "id": "kaki",
+  "label": "Skrining Kaki",
+  "src": "./stickers/kaki.webp",
+  "width": 173,
+  "height": 360
+ },
+ {
+  "id": "aloebite",
+  "label": "Aloebite",
+  "src": "./stickers/aloebite.webp",
+  "width": 161,
+  "height": 360
+ },
+ {
+  "id": "blue-bloom",
+  "label": "Blue Bloom",
+  "src": "./stickers/blue-bloom.webp",
+  "width": 244,
+  "height": 360
+ },
+ {
+  "id": "kader",
+  "label": "Kader",
+  "src": "./stickers/kader.webp",
+  "width": 360,
+  "height": 211
+ },
+ {
+  "id": "toga",
+  "label": "TOGA",
+  "src": "./stickers/toga.webp",
+  "width": 186,
+  "height": 360
+ },
+ {
+  "id": "telang",
+  "label": "Bunga Telang",
+  "src": "./stickers/telang.webp",
+  "width": 164,
+  "height": 314
+ },
+ {
+  "id": "lidah-buaya",
+  "label": "Lidah Buaya",
+  "src": "./stickers/lidah-buaya.webp",
+  "width": 360,
+  "height": 299
+ }
+]

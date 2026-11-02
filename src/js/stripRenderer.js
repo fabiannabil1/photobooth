@@ -2,6 +2,10 @@
 // Handles 4-Cut Life4Cuts style, 2x2 Grid, and Single Photo with frames, filters, stickers, typography, and Live Photo animations
 import { GIFEncoder, quantize, applyPalette } from 'gifenc';
 import { getSupportedVideoMimeType } from './capture.js';
+import promahaFrames from './promahaFrames.json';
+
+export const PROMAHA_FRAMES = promahaFrames;
+export const DEFAULT_STRIP_TITLE = 'PANTAU BERSAMA, DESA SEHAT!';
 
 export const FRAME_THEMES = {
   white: {
@@ -105,6 +109,24 @@ export class StripRenderer {
   constructor() {
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d');
+    this.images = new Map();
+    this.onAssetReady = null; // dipanggil saat gambar frame/stiker selesai dimuat
+  }
+
+  // Muat gambar sekali saja; kembalikan elemen hanya bila sudah siap digambar
+  getImage(src) {
+    let img = this.images.get(src);
+    if (!img) {
+      img = new Image();
+      img.onload = () => this.onAssetReady?.();
+      img.src = src;
+      this.images.set(src, img);
+    }
+    return img.complete && img.naturalWidth ? img : null;
+  }
+
+  preloadFrames(layout) {
+    Object.values(PROMAHA_FRAMES).forEach((f) => this.getImage(f.layouts[layout].src));
   }
 
   /**
@@ -125,7 +147,7 @@ export class StripRenderer {
     layout = '4-cut',
     themeId = 'white',
     filterId = 'normal',
-    title = 'PHOTOBOOTH MEMORIES',
+    title = DEFAULT_STRIP_TITLE,
     dateText = new Date().toLocaleDateString('id-ID', {
       year: 'numeric',
       month: '2-digit',
@@ -136,8 +158,11 @@ export class StripRenderer {
   }) {
     const theme = FRAME_THEMES[themeId] || FRAME_THEMES.white;
     const filter = PHOTO_FILTERS[filterId] || PHOTO_FILTERS.normal;
+    const promaha = PROMAHA_FRAMES[themeId];
 
-    if (layout === '4-cut') {
+    if (promaha) {
+      this.renderPromahaFrame(promaha, layout, snapshots, filter, title, dateText, useLive);
+    } else if (layout === '4-cut') {
       this.render4Cut(snapshots, theme, filter, title, dateText, useLive);
     } else if (layout === 'grid-2x2') {
       this.renderGrid2x2(snapshots, theme, filter, title, dateText, useLive);
@@ -176,8 +201,72 @@ export class StripRenderer {
     return snap.canvas || snap;
   }
 
+  // Frame Promahadesa: foto digambar lebih dulu, lalu seni frame (berlubang) menutupinya
+  renderPromahaFrame(frame, layout, snapshots, filter, title, dateText, useLive) {
+    const cfg = frame.layouts[layout] || frame.layouts['4-cut'];
+    this.canvas.width = cfg.width;
+    this.canvas.height = cfg.height;
+    this.ctx.fillStyle = frame.bg;
+    this.ctx.fillRect(0, 0, cfg.width, cfg.height);
+
+    cfg.photos.forEach((slot, i) => {
+      const source = this.resolvePhotoSource(snapshots[i] || snapshots[0], useLive);
+      if (source) {
+        this.drawPhoto(source, slot.x - 1, slot.y - 1, slot.w + 2, slot.h + 2, filter.filter, 0, false);
+      }
+    });
+
+    const art = this.getImage(cfg.src);
+    if (art) this.ctx.drawImage(art, 0, 0, cfg.width, cfg.height);
+
+    this.drawFitText(title.toUpperCase(), cfg.title, 700, '1px');
+    this.drawFitText(dateText, { ...cfg.date, lines: 1 }, 600, '1px');
+  }
+
+  // Tulis teks dalam kotak: pindah baris sesuai slot, mengecil bila masih tidak muat
+  drawFitText(text, box, weight, tracking) {
+    const family = box.font === 'mono' ? '"IBM Plex Mono", monospace' : '"Montserrat", "Outfit", sans-serif';
+    const maxLines = box.lines || 1;
+    const maxWidth = box.maxWidth || this.canvas.width * 0.9;
+    const { ctx } = this;
+
+    ctx.save();
+    ctx.textAlign = box.align;
+    ctx.fillStyle = box.color;
+    ctx.letterSpacing = tracking;
+
+    let size = box.size;
+    let lines = [];
+    const minSize = box.size * 0.55;
+    for (; size >= minSize; size -= 1) {
+      ctx.font = `${weight} ${size}px ${family}`;
+      lines = this.wrapWords(text, maxWidth);
+      if (lines.length <= maxLines && lines.every((l) => ctx.measureText(l).width <= maxWidth)) break;
+    }
+    lines.slice(0, maxLines).forEach((line, i) => {
+      ctx.fillText(line, box.x, box.y + i * size * 1.2);
+    });
+    ctx.restore();
+  }
+
+  wrapWords(text, maxWidth) {
+    const lines = [];
+    let line = '';
+    text.split(/\s+/).forEach((word) => {
+      const next = line ? `${line} ${word}` : word;
+      if (line && this.ctx.measureText(next).width > maxWidth) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = next;
+      }
+    });
+    if (line) lines.push(line);
+    return lines;
+  }
+
   // Draw photo with rounded corners and filter
-  drawPhoto(img, x, y, width, height, filterStr, radius = 12) {
+  drawPhoto(img, x, y, width, height, filterStr, radius = 12, innerBorder = true) {
     if (!img) return;
     this.ctx.save();
 
@@ -215,6 +304,8 @@ export class StripRenderer {
 
     this.ctx.drawImage(img, sx, sy, sWidth, sHeight, x, y, width, height);
     this.ctx.restore();
+
+    if (!innerBorder) return;
 
     // Subtle inner border for photo
     this.ctx.save();
@@ -272,7 +363,7 @@ export class StripRenderer {
     // Aesthetic mini barcode / serial code
     this.ctx.font = '600 11px monospace';
     this.ctx.letterSpacing = '3px';
-    this.ctx.fillText('LUMI-AI-BOOTH // 2026', W / 2, footerY + 95);
+    this.ctx.fillText('PROMAHADESA KAMAL // 2026', W / 2, footerY + 95);
 
     this.ctx.restore();
   }
@@ -371,6 +462,15 @@ export class StripRenderer {
       this.ctx.translate(x, y);
       if (s.rotation) this.ctx.rotate((s.rotation * Math.PI) / 180);
 
+      if (s.src) {
+        const img = this.getImage(s.src);
+        const w = s.relW * this.canvas.width;
+        const h = w * s.aspect;
+        if (img) this.ctx.drawImage(img, -w / 2, -h / 2, w, h);
+        this.ctx.restore();
+        return;
+      }
+
       this.ctx.font = `${s.size || 48}px sans-serif`;
       this.ctx.textAlign = 'center';
       this.ctx.textBaseline = 'middle';
@@ -381,10 +481,24 @@ export class StripRenderer {
     this.ctx.restore();
   }
 
+  // Stiker teratas pada titik tertentu (koordinat relatif canvas), untuk diseret
+  hitSticker(stickers, relX, relY) {
+    const { width, height } = this.canvas;
+    for (let i = stickers.length - 1; i >= 0; i--) {
+      const s = stickers[i];
+      const halfW = s.src ? (s.relW * width) / 2 : (s.size || 48) / 2;
+      const halfH = s.src ? (s.relW * width * s.aspect) / 2 : (s.size || 48) / 2;
+      if (Math.abs((relX - s.relX) * width) <= halfW && Math.abs((relY - s.relY) * height) <= halfH) {
+        return s;
+      }
+    }
+    return null;
+  }
+
   /**
    * Export the current canvas as a PNG download
    */
-  download(filename = 'photobooth-strip.png') {
+  download(filename = 'promaha-booth.png') {
     const link = document.createElement('a');
     link.download = filename;
     link.href = this.canvas.toDataURL('image/png', 1.0);
@@ -405,7 +519,7 @@ export class StripRenderer {
    */
   async exportVideo({
     durationMs = 2800,
-    filename = 'photobooth-live.mp4',
+    filename = 'promaha-booth-live.mp4',
     onProgress = null,
   }) {
     const mimeType = getSupportedVideoMimeType();
@@ -459,7 +573,7 @@ export class StripRenderer {
     fps = 10,
     durationMs = 2400,
     scale = 0.45,
-    filename = 'photobooth-live.gif',
+    filename = 'promaha-booth-live.gif',
     onProgress = null,
   }) {
     const gif = GIFEncoder();
