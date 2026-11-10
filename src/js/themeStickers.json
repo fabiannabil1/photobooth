@@ -1,0 +1,156 @@
+[
+ {
+  "id": "dies62",
+  "label": "Dies Natalis 62",
+  "src": "./stickers/dies62.webp",
+  "width": 322,
+  "height": 360
+ },
+ {
+  "id": "ucapan-dies",
+  "label": "Selamat Dies!",
+  "src": "./stickers/ucapan-dies.webp",
+  "width": 360,
+  "height": 81
+ },
+ {
+  "id": "tunas",
+  "label": "Si Tunas",
+  "src": "./stickers/tunas.webp",
+  "width": 277,
+  "height": 360
+ },
+ {
+  "id": "tunas-senang",
+  "label": "Tunas Senang",
+  "src": "./stickers/tunas-senang.webp",
+  "width": 281,
+  "height": 360
+ },
+ {
+  "id": "logo-lab",
+  "label": "Logo Lab",
+  "src": "./stickers/logo-lab.webp",
+  "width": 358,
+  "height": 360
+ },
+ {
+  "id": "logo-fasilkom",
+  "label": "Fasilkom",
+  "src": "./stickers/logo-fasilkom.webp",
+  "width": 360,
+  "height": 90
+ },
+ {
+  "id": "logo-unej",
+  "label": "UNEJ",
+  "src": "./stickers/logo-unej.webp",
+  "width": 360,
+  "height": 358
+ },
+ {
+  "id": "halo",
+  "label": "Halo Fasilkom",
+  "src": "./stickers/halo.webp",
+  "width": 360,
+  "height": 119
+ },
+ {
+  "id": "tani-cerdas",
+  "label": "Tani Cerdas",
+  "src": "./stickers/tani-cerdas.webp",
+  "width": 360,
+  "height": 153
+ },
+ {
+  "id": "terus-tumbuh",
+  "label": "Terus Tumbuh",
+  "src": "./stickers/terus-tumbuh.webp",
+  "width": 360,
+  "height": 143
+ },
+ {
+  "id": "panen-data",
+  "label": "Panen Data",
+  "src": "./stickers/panen-data.webp",
+  "width": 360,
+  "height": 157
+ },
+ {
+  "id": "innovate",
+  "label": "Innovate",
+  "src": "./stickers/innovate.webp",
+  "width": 360,
+  "height": 104
+ },
+ {
+  "id": "laptop",
+  "label": "Laptop Bertunas",
+  "src": "./stickers/laptop.webp",
+  "width": 360,
+  "height": 298
+ },
+ {
+  "id": "drone",
+  "label": "Drone",
+  "src": "./stickers/drone.webp",
+  "width": 360,
+  "height": 174
+ },
+ {
+  "id": "sensor",
+  "label": "Sensor Tanah",
+  "src": "./stickers/sensor.webp",
+  "width": 126,
+  "height": 360
+ },
+ {
+  "id": "chip",
+  "label": "Chip AGRI-32",
+  "src": "./stickers/chip.webp",
+  "width": 360,
+  "height": 360
+ },
+ {
+  "id": "gauge",
+  "label": "Kelembapan",
+  "src": "./stickers/gauge.webp",
+  "width": 360,
+  "height": 274
+ },
+ {
+  "id": "tunas-kecil",
+  "label": "Tunas",
+  "src": "./stickers/tunas-kecil.webp",
+  "width": 360,
+  "height": 306
+ },
+ {
+  "id": "hidroponik",
+  "label": "Hidroponik",
+  "src": "./stickers/hidroponik.webp",
+  "width": 360,
+  "height": 142
+ },
+ {
+  "id": "kode",
+  "label": "</>",
+  "src": "./stickers/kode.webp",
+  "width": 360,
+  "height": 212
+ },
+ {
+  "id": "wifi",
+  "label": "Sinyal",
+  "src": "./stickers/wifi.webp",
+  "width": 312,
+  "height": 237
+ },
+ {
+  "id": "kilau",
+  "label": "Kilau",
+  "src": "./stickers/kilau.webp",
+  "width": 260,
+  "height": 260
+ }
+]

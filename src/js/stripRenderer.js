@@ -2,10 +2,17 @@
 // Handles 4-Cut Life4Cuts style, 2x2 Grid, and Single Photo with frames, filters, stickers, typography, and Live Photo animations
 import { GIFEncoder, quantize, applyPalette } from 'gifenc';
 import { getSupportedVideoMimeType } from './capture.js';
-import promahaFrames from './promahaFrames.json';
+import themeFrames from './themeFrames.json';
 
-export const PROMAHA_FRAMES = promahaFrames;
-export const DEFAULT_STRIP_TITLE = 'PANTAU BERSAMA, DESA SEHAT!';
+export const THEME_FRAMES = themeFrames;
+export const DEFAULT_STRIP_TITLE = 'TERUS TUMBUH, TERUS BERBUAH';
+
+// Font teks dinamis pada frame tema, sama dengan font di sumber PhotoCraft
+const FRAME_FONTS = {
+  display: { family: '"Unbounded", "Montserrat", sans-serif', style: '', weight: 700 },
+  serif: { family: '"Fraunces", Georgia, serif', style: 'italic ', weight: 600 },
+  mono: { family: '"IBM Plex Mono", monospace', style: '', weight: null },
+};
 
 export const FRAME_THEMES = {
   white: {
@@ -126,7 +133,7 @@ export class StripRenderer {
   }
 
   preloadFrames(layout) {
-    Object.values(PROMAHA_FRAMES).forEach((f) => this.getImage(f.layouts[layout].src));
+    Object.values(THEME_FRAMES).forEach((f) => this.getImage(f.layouts[layout].src));
   }
 
   /**
@@ -158,10 +165,10 @@ export class StripRenderer {
   }) {
     const theme = FRAME_THEMES[themeId] || FRAME_THEMES.white;
     const filter = PHOTO_FILTERS[filterId] || PHOTO_FILTERS.normal;
-    const promaha = PROMAHA_FRAMES[themeId];
+    const themed = THEME_FRAMES[themeId];
 
-    if (promaha) {
-      this.renderPromahaFrame(promaha, layout, snapshots, filter, title, dateText, useLive);
+    if (themed) {
+      this.renderThemeFrame(themed, layout, snapshots, filter, title, dateText, useLive);
     } else if (layout === '4-cut') {
       this.render4Cut(snapshots, theme, filter, title, dateText, useLive);
     } else if (layout === 'grid-2x2') {
@@ -201,8 +208,8 @@ export class StripRenderer {
     return snap.canvas || snap;
   }
 
-  // Frame Promahadesa: foto digambar lebih dulu, lalu seni frame (berlubang) menutupinya
-  renderPromahaFrame(frame, layout, snapshots, filter, title, dateText, useLive) {
+  // Frame tema: foto digambar lebih dulu, lalu seni frame (berlubang) menutupinya
+  renderThemeFrame(frame, layout, snapshots, filter, title, dateText, useLive) {
     const cfg = frame.layouts[layout] || frame.layouts['4-cut'];
     this.canvas.width = cfg.width;
     this.canvas.height = cfg.height;
@@ -225,7 +232,9 @@ export class StripRenderer {
 
   // Tulis teks dalam kotak: pindah baris sesuai slot, mengecil bila masih tidak muat
   drawFitText(text, box, weight, tracking) {
-    const family = box.font === 'mono' ? '"IBM Plex Mono", monospace' : '"Montserrat", "Outfit", sans-serif';
+    const font = FRAME_FONTS[box.font] || { family: '"Montserrat", "Outfit", sans-serif', style: '', weight: null };
+    const family = font.family;
+    weight = font.weight || weight;
     const maxLines = box.lines || 1;
     const maxWidth = box.maxWidth || this.canvas.width * 0.9;
     const { ctx } = this;
@@ -239,7 +248,7 @@ export class StripRenderer {
     let lines = [];
     const minSize = box.size * 0.55;
     for (; size >= minSize; size -= 1) {
-      ctx.font = `${weight} ${size}px ${family}`;
+      ctx.font = `${font.style}${weight} ${size}px ${family}`;
       lines = this.wrapWords(text, maxWidth);
       if (lines.length <= maxLines && lines.every((l) => ctx.measureText(l).width <= maxWidth)) break;
     }
@@ -363,7 +372,7 @@ export class StripRenderer {
     // Aesthetic mini barcode / serial code
     this.ctx.font = '600 11px monospace';
     this.ctx.letterSpacing = '3px';
-    this.ctx.fillText('PROMAHADESA KAMAL // 2026', W / 2, footerY + 95);
+    this.ctx.fillText('LAB PERTANIAN CERDAS // FASILKOM UNEJ', W / 2, footerY + 95);
 
     this.ctx.restore();
   }
@@ -498,7 +507,7 @@ export class StripRenderer {
   /**
    * Export the current canvas as a PNG download
    */
-  download(filename = 'promaha-booth.png') {
+  download(filename = 'tunas-booth.png') {
     const link = document.createElement('a');
     link.download = filename;
     link.href = this.canvas.toDataURL('image/png', 1.0);
@@ -519,7 +528,7 @@ export class StripRenderer {
    */
   async exportVideo({
     durationMs = 2800,
-    filename = 'promaha-booth-live.mp4',
+    filename = 'tunas-booth-live.mp4',
     onProgress = null,
   }) {
     const mimeType = getSupportedVideoMimeType();
@@ -573,7 +582,7 @@ export class StripRenderer {
     fps = 10,
     durationMs = 2400,
     scale = 0.45,
-    filename = 'promaha-booth-live.gif',
+    filename = 'tunas-booth-live.gif',
     onProgress = null,
   }) {
     const gif = GIFEncoder();

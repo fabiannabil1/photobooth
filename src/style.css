@@ -1,26 +1,26 @@
 /* ==========================================================================
-   PROMAHA BOOTH — DESIGN SYSTEM & FULLSCREEN AESTHETIC STYLES
+   TUNAS BOOTH (FASILKOM × LAB PERTANIAN CERDAS UNEJ) — DESIGN SYSTEM & FULLSCREEN AESTHETIC STYLES
    Ultra-modern Fullscreen Photobooth with Google Meet-style Virtual BG & Right Sidebar
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@600;700&family=Unbounded:wght@600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,600&display=swap');
 
 :root {
-  --bg-base: #081434;
-  --bg-surface: rgba(18, 38, 92, 0.72);
-  --bg-surface-hover: rgba(28, 54, 124, 0.85);
-  --bg-card: rgba(20, 42, 100, 0.6);
+  --bg-base: #12170B;
+  --bg-surface: rgba(40, 50, 24, 0.72);
+  --bg-surface-hover: rgba(56, 70, 32, 0.85);
+  --bg-card: rgba(42, 52, 26, 0.6);
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-active: rgba(168, 207, 69, 0.6);
+  --border-active: rgba(198, 235, 90, 0.6);
 
-  --accent-primary: #A8CF45;
-  --accent-secondary: #2747C7;
-  --accent-gradient: linear-gradient(135deg, #C4E15F 0%, #8CC63F 100%);
-  --accent-glow: rgba(168, 207, 69, 0.35);
+  --accent-primary: #C6EB5A;
+  --accent-secondary: #E2401A;
+  --accent-gradient: linear-gradient(135deg, #D5F27A 0%, #9DBA3A 100%);
+  --accent-glow: rgba(198, 235, 90, 0.35);
 
   --text-primary: #f8fafc;
-  --text-secondary: #B3C0DE;
-  --text-muted: #8A99BD;
+  --text-secondary: #C9D4A8;
+  --text-muted: #98A57A;
 
   --success: #10b981;
   --warning: #f59e0b;
@@ -35,7 +35,8 @@
   --shadow-glow: 0 0 35px -5px var(--accent-glow);
   --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.5);
 
-  --font-display: 'Montserrat', sans-serif;
+  --font-display: 'Unbounded', 'Montserrat', sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
   --font-body: 'Montserrat', sans-serif;
 }
 
@@ -97,8 +98,8 @@ body {
   display: none;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(168, 207, 69, 0.15);
-  border: 1px solid rgba(168, 207, 69, 0.35);
+  background: rgba(198, 235, 90, 0.15);
+  border: 1px solid rgba(198, 235, 90, 0.35);
   color: #f8fafc;
   padding: 0.35rem 0.75rem;
   border-radius: var(--radius-full);
@@ -112,7 +113,7 @@ body {
 
 .btn-install-pwa:hover {
   background: var(--accent-gradient);
-  color: #0E1F4D;
+  color: #1E2611;
   border-color: transparent;
   transform: translateY(-1px);
   box-shadow: 0 4px 14px var(--accent-glow);
@@ -133,7 +134,7 @@ body {
   height: 32px;
   border-radius: 10px;
   background: var(--accent-gradient);
-  color: #0E1F4D;
+  color: #1E2611;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,9 +160,9 @@ body {
   letter-spacing: 0.5px;
   padding: 2px 8px;
   border-radius: var(--radius-full);
-  background: rgba(168, 207, 69, 0.15);
-  color: #C8E36F;
-  border: 1px solid rgba(168, 207, 69, 0.3);
+  background: rgba(198, 235, 90, 0.15);
+  color: #D5F27A;
+  border: 1px solid rgba(198, 235, 90, 0.3);
 }
 
 /* ==========================================================================
@@ -280,7 +281,7 @@ body {
   font-weight: 800;
   line-height: 1;
   color: #ffffff;
-  text-shadow: 0 0 50px rgba(168, 207, 69, 0.9), 0 4px 25px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 0 50px rgba(198, 235, 90, 0.9), 0 4px 25px rgba(0, 0, 0, 0.8);
   animation: countdown-pop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
 }
 
@@ -382,8 +383,8 @@ body {
 }
 
 .floating-btn.active {
-  background: rgba(168, 207, 69, 0.25);
-  color: #D5EA8F;
+  background: rgba(198, 235, 90, 0.25);
+  color: #E0F4A0;
   border-color: var(--accent-primary);
   box-shadow: 0 0 14px var(--accent-glow);
 }
@@ -411,7 +412,7 @@ body {
 }
 
 .floating-select option {
-  background: #0E1F4D;
+  background: #1E2611;
   color: #fff;
 }
 
@@ -424,7 +425,7 @@ body {
   max-width: 360px;
   height: 100%;
   flex-shrink: 0;
-  background: rgba(9, 20, 54, 0.97);
+  background: rgba(20, 26, 12, 0.97);
   backdrop-filter: blur(28px);
   border-left: 1px solid var(--border-subtle);
   padding: 1.15rem;
@@ -458,7 +459,7 @@ body {
 .card-title-tag {
   font-size: 0.68rem;
   font-weight: 600;
-  color: #A8CF45;
+  color: #C6EB5A;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -494,8 +495,8 @@ body {
 
 .bg-tab-btn.active {
   background: var(--accent-gradient);
-  color: #0E1F4D;
-  box-shadow: 0 2px 10px rgba(168, 207, 69, 0.4);
+  color: #1E2611;
+  box-shadow: 0 2px 10px rgba(198, 235, 90, 0.4);
 }
 
 /* Tab Content Areas */
@@ -601,9 +602,9 @@ body {
 }
 
 .blur-btn.active {
-  background: rgba(168, 207, 69, 0.15);
+  background: rgba(198, 235, 90, 0.15);
   border-color: var(--accent-primary);
-  color: #C8E36F;
+  color: #D5F27A;
   box-shadow: 0 0 16px var(--accent-glow);
 }
 
@@ -624,7 +625,7 @@ body {
 
 .upload-dropzone:hover {
   border-color: var(--accent-primary);
-  background: rgba(168, 207, 69, 0.05);
+  background: rgba(198, 235, 90, 0.05);
 }
 
 .upload-icon {
@@ -667,7 +668,7 @@ body {
 .anti-leak-hint {
   font-size: 0.7rem;
   font-weight: 600;
-  color: #C8E36F;
+  color: #D5F27A;
 }
 
 .anti-leak-options {
@@ -699,8 +700,8 @@ body {
 
 .anti-leak-btn.active {
   background: var(--accent-gradient);
-  color: #0E1F4D;
-  box-shadow: 0 2px 8px rgba(168, 207, 69, 0.4);
+  color: #1E2611;
+  box-shadow: 0 2px 8px rgba(198, 235, 90, 0.4);
 }
 
 /* Shooting Mode Selector */
@@ -747,7 +748,7 @@ body {
 
 .mode-btn.active {
   border-color: var(--accent-primary);
-  background: rgba(168, 207, 69, 0.18);
+  background: rgba(198, 235, 90, 0.18);
   box-shadow: 0 0 16px var(--accent-glow);
 }
 
@@ -789,8 +790,8 @@ body {
 
 .timer-btn.active {
   background: var(--accent-gradient);
-  color: #0E1F4D;
-  box-shadow: 0 2px 8px rgba(168, 207, 69, 0.4);
+  color: #1E2611;
+  box-shadow: 0 2px 8px rgba(198, 235, 90, 0.4);
 }
 
 /* Live Photo Toggle Card */
@@ -892,7 +893,7 @@ body {
 }
 
 .toggle-switch input:checked+.toggle-slider {
-  background: linear-gradient(135deg, #f59e0b 0%, #2747C7 100%);
+  background: linear-gradient(135deg, #f59e0b 0%, #E2401A 100%);
   box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
 }
 
@@ -912,7 +913,7 @@ body {
   border: none;
   border-radius: var(--radius-md);
   background: var(--accent-gradient);
-  color: #0E1F4D;
+  color: #1E2611;
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
@@ -928,7 +929,7 @@ body {
 
 .shutter-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(168, 207, 69, 0.5);
+  box-shadow: 0 8px 32px rgba(198, 235, 90, 0.5);
 }
 
 .shutter-btn:active {
@@ -963,7 +964,7 @@ body {
   justify-content: center;
   overflow-y: auto;
   padding: 2rem;
-  background: radial-gradient(circle at 50% 50%, rgba(168, 207, 69, 0.08) 0%, rgba(8, 20, 52, 0.95) 100%);
+  background: radial-gradient(circle at 50% 50%, rgba(198, 235, 90, 0.08) 0%, rgba(18, 23, 11, 0.95) 100%);
 }
 
 .studio-preview-column {
@@ -1124,9 +1125,9 @@ body {
 }
 
 .filter-btn.active {
-  background: rgba(168, 207, 69, 0.18);
+  background: rgba(198, 235, 90, 0.18);
   border-color: var(--accent-primary);
-  color: #C8E36F;
+  color: #D5F27A;
   box-shadow: 0 0 14px var(--accent-glow);
 }
 
@@ -1197,7 +1198,7 @@ body {
   background: var(--accent-gradient);
   border: none;
   border-radius: var(--radius-md);
-  color: #0E1F4D;
+  color: #1E2611;
   font-family: var(--font-display);
   font-size: 0.98rem;
   font-weight: 700;
@@ -1212,7 +1213,7 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(168, 207, 69, 0.5);
+  box-shadow: 0 8px 30px rgba(198, 235, 90, 0.5);
 }
 
 .btn-secondary {
@@ -1260,11 +1261,11 @@ body {
 
 @keyframes pulse-glow {
   0% {
-    box-shadow: 0 0 15px rgba(168, 207, 69, 0.4);
+    box-shadow: 0 0 15px rgba(198, 235, 90, 0.4);
   }
 
   100% {
-    box-shadow: 0 0 25px rgba(39, 71, 199, 0.7);
+    box-shadow: 0 0 25px rgba(226, 64, 26, 0.7);
   }
 }
 
@@ -1299,9 +1300,9 @@ body {
 }
 
 .btn-live-export.btn-video:hover {
-  border-color: #A8CF45;
-  color: #D5EA8F;
-  box-shadow: 0 0 14px rgba(168, 207, 69, 0.3);
+  border-color: #C6EB5A;
+  color: #E0F4A0;
+  box-shadow: 0 0 14px rgba(198, 235, 90, 0.3);
 }
 
 .btn-live-export.btn-gif:hover {
@@ -1344,7 +1345,7 @@ body {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 3px solid rgba(168, 207, 69, 0.2);
+  border: 3px solid rgba(198, 235, 90, 0.2);
   border-top-color: var(--accent-primary);
   border-right-color: var(--accent-secondary);
   animation: spin 0.9s linear infinite;
@@ -1378,7 +1379,7 @@ body {
 .export-progress-bar {
   height: 100%;
   background: var(--accent-gradient);
-  color: #0E1F4D;
+  color: #1E2611;
   border-radius: var(--radius-full);
   transition: width 0.15s ease;
 }
@@ -1386,7 +1387,7 @@ body {
 .export-progress-percent {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #D5EA8F;
+  color: #E0F4A0;
 }
 
 @keyframes spin {
@@ -1410,7 +1411,7 @@ body {
 }
 
 /* ==========================================================================
-   Promahadesa: sapaan maskot, frame, stiker gambar
+   Tema Fasilkom × Lab: logo, sapaan maskot, frame, stiker gambar
    ========================================================================== */
 .brand-logo {
   width: 44px;
@@ -1420,7 +1421,7 @@ body {
 }
 
 .brand .brand-title {
-  font-size: 1.02rem;
+  font-size: 0.9rem;
   white-space: nowrap;
 }
 
@@ -1431,6 +1432,26 @@ body {
   letter-spacing: 0.3px;
   white-space: nowrap;
   color: var(--accent-primary);
+}
+
+.partner-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+}
+
+.partner-logos img {
+  height: 38px;
+  width: auto;
+}
+
+.partner-logos .partner-wide {
+  height: 26px;
 }
 
 .mascot-greeting {
@@ -1450,8 +1471,10 @@ body {
 .mascot-bubble {
   position: relative;
   flex: 1;
-  background: #FFF8E7;
-  color: #0E1F4D;
+  font-family: var(--font-serif);
+  font-style: italic;
+  background: #F7F5EC;
+  color: #1E2611;
   border-radius: 14px;
   padding: 0.55rem 0.75rem;
   font-size: 0.76rem;
@@ -1467,7 +1490,7 @@ body {
   bottom: 10px;
   border-style: solid;
   border-width: 6px 8px 6px 0;
-  border-color: transparent #FFF8E7 transparent transparent;
+  border-color: transparent #F7F5EC transparent transparent;
 }
 
 .studio-mascot {

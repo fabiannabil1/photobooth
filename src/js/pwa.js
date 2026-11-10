@@ -65,7 +65,7 @@ export function initPWA() {
   }
 
   window.addEventListener('appinstalled', () => {
-    console.log('[PWA] Promaha Booth installed successfully!');
+    console.log('[PWA] Tunas Booth installed successfully!');
     if (installBtn) {
       installBtn.style.display = 'none';
     }

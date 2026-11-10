@@ -1,0 +1,975 @@
+{
+ "dies": {
+  "id": "dies",
+  "name": "Dies Natalis 62",
+  "bg": "#FAF3E0",
+  "layouts": {
+   "4-cut": {
+    "src": "./frames/dies-4-cut.webp",
+    "width": 640,
+    "height": 2104,
+    "radius": 12,
+    "photos": [
+     {
+      "x": 36,
+      "y": 318,
+      "w": 568,
+      "h": 344
+     },
+     {
+      "x": 36,
+      "y": 678,
+      "w": 568,
+      "h": 344
+     },
+     {
+      "x": 36,
+      "y": 1038,
+      "w": 568,
+      "h": 344
+     },
+     {
+      "x": 36,
+      "y": 1398,
+      "w": 568,
+      "h": 344
+     }
+    ],
+    "title": {
+     "x": 309.3,
+     "y": 1874.0,
+     "size": 22.0,
+     "color": "#1E7A4C",
+     "align": "left",
+     "maxWidth": 294.7,
+     "lines": 3,
+     "font": "display"
+    },
+    "date": {
+     "x": 309.3,
+     "y": 1953.2,
+     "size": 17.0,
+     "color": "#EE3338",
+     "align": "left",
+     "font": "serif"
+    }
+   },
+   "grid-2x2": {
+    "src": "./frames/dies-grid-2x2.webp",
+    "width": 1200,
+    "height": 1550,
+    "radius": 17,
+    "photos": [
+     {
+      "x": 56,
+      "y": 462,
+      "w": 532,
+      "h": 367
+     },
+     {
+      "x": 612,
+      "y": 462,
+      "w": 532,
+      "h": 367
+     },
+     {
+      "x": 56,
+      "y": 853,
+      "w": 532,
+      "h": 367
+     },
+     {
+      "x": 612,
+      "y": 853,
+      "w": 532,
+      "h": 367
+     }
+    ],
+    "title": {
+     "x": 288.0,
+     "y": 1331.7,
+     "size": 31.9,
+     "color": "#1E7A4C",
+     "align": "left",
+     "maxWidth": 666.0,
+     "lines": 2,
+     "font": "display"
+    },
+    "date": {
+     "x": 288.0,
+     "y": 1408.3,
+     "size": 24.6,
+     "color": "#EE3338",
+     "align": "left",
+     "font": "serif"
+    }
+   },
+   "single": {
+    "src": "./frames/dies-single.webp",
+    "width": 800,
+    "height": 1172,
+    "radius": 14,
+    "photos": [
+     {
+      "x": 46,
+      "y": 366,
+      "w": 708,
+      "h": 506
+     }
+    ],
+    "title": {
+     "x": 263.9,
+     "y": 979.7,
+     "size": 25.3,
+     "color": "#1E7A4C",
+     "align": "left",
+     "maxWidth": 310.1,
+     "lines": 2,
+     "font": "display"
+    },
+    "date": {
+     "x": 263.9,
+     "y": 1040.5,
+     "size": 19.5,
+     "color": "#EE3338",
+     "align": "left",
+     "font": "serif"
+    }
+   }
+  }
+ },
+ "lab": {
+  "id": "lab",
+  "name": "Tumbuh Bersama",
+  "bg": "#1E2611",
+  "layouts": {
+   "4-cut": {
+    "src": "./frames/lab-4-cut.webp",
+    "width": 640,
+    "height": 2128,
+    "radius": 14,
+    "photos": [
+     {
+      "x": 36,
+      "y": 302,
+      "w": 568,
+      "h": 344
+     },
+     {
+      "x": 36,
+      "y": 662,
+      "w": 568,
+      "h": 344
+     },
+     {
+      "x": 36,
+      "y": 1022,
+      "w": 568,
+      "h": 344
+     },
+     {
+      "x": 36,
+      "y": 1382,
+      "w": 568,
+      "h": 344
+     }
+    ],
+    "title": {
+     "x": 36,
+     "y": 1866.6,
+     "size": 24.0,
+     "color": "#F7F5EC",
+     "align": "left",
+     "maxWidth": 330.0,
+     "lines": 2,
+     "font": "display"
+    },
+    "date": {
+     "x": 36,
+     "y": 1922.5,
+     "size": 17.0,
+     "color": "#C6EB5A",
+     "align": "left",
+     "font": "serif"
+    }
+   },
+   "grid-2x2": {
+    "src": "./frames/lab-grid-2x2.webp",
+    "width": 1200,
+    "height": 1538,
+    "radius": 20,
+    "photos": [
+     {
+      "x": 54,
+      "y": 438,
+      "w": 534,
+      "h": 368
+     },
+     {
+      "x": 612,
+      "y": 438,
+      "w": 534,
+      "h": 368
+     },
+     {
+      "x": 54,
+      "y": 830,
+      "w": 534,
+      "h": 368
+     },
+     {
+      "x": 612,
+      "y": 830,
+      "w": 534,
+      "h": 368
+     }
+    ],
+    "title": {
+     "x": 54,
+     "y": 1299.8,
+     "size": 34.8,
+     "color": "#F7F5EC",
+     "align": "left",
+     "maxWidth": 927.7,
+     "lines": 1,
+     "font": "display"
+    },
+    "date": {
+     "x": 54,
+     "y": 1339.1,
+     "size": 24.6,
+     "color": "#C6EB5A",
+     "align": "left",
+     "font": "serif"
+    }
+   },
+   "single": {
+    "src": "./frames/lab-single.webp",
+    "width": 800,
+    "height": 1154,
+    "radius": 16,
+    "photos": [
+     {
+      "x": 46,
+      "y": 348,
+      "w": 708,
+      "h": 506
+     }
+    ],
+    "title": {
+     "x": 46,
+     "y": 949.9,
+     "size": 27.6,
+     "color": "#F7F5EC",
+     "align": "left",
+     "maxWidth": 554.8,
+     "lines": 1,
+     "font": "display"
+    },
+    "date": {
+     "x": 46,
+     "y": 981.1,
+     "size": 19.5,
+     "color": "#C6EB5A",
+     "align": "left",
+     "font": "serif"
+    }
+   }
+  }
+ },
+ "fasilkom": {
+  "id": "fasilkom",
+  "name": "Menanam Ide",
+  "bg": "#F4F5EF",
+  "layouts": {
+   "4-cut": {
+    "src": "./frames/fasilkom-4-cut.webp",
+    "width": 640,
+    "height": 2132,
+    "radius": 10,
+    "photos": [
+     {
+      "x": 34,
+      "y": 276,
+      "w": 572,
+      "h": 347
+     },
+     {
+      "x": 34,
+      "y": 639,
+      "w": 572,
+      "h": 347
+     },
+     {
+      "x": 34,
+      "y": 1002,
+      "w": 572,
+      "h": 347
+     },
+     {
+      "x": 34,
+      "y": 1365,
+      "w": 572,
+      "h": 347
+     }
+    ],
+    "title": {
+     "x": 34,
+     "y": 1787.6,
+     "size": 24,
+     "color": "#3A3B3D",
+     "align": "left",
+     "maxWidth": 572,
+     "lines": 2,
+     "font": "display"
+    },
+    "date": {
+     "x": 34,
+     "y": 1843.5,
+     "size": 17,
+     "color": "#E2401A",
+     "align": "left",
+     "font": "serif"
+    }
+   },
+   "grid-2x2": {
+    "src": "./frames/fasilkom-grid-2x2.webp",
+    "width": 1200,
+    "height": 1516,
+    "radius": 14,
+    "photos": [
+     {
+      "x": 54,
+      "y": 435,
+      "w": 534,
+      "h": 368
+     },
+     {
+      "x": 612,
+      "y": 435,
+      "w": 534,
+      "h": 368
+     },
+     {
+      "x": 54,
+      "y": 827,
+      "w": 534,
+      "h": 368
+     },
+     {
+      "x": 612,
+      "y": 827,
+      "w": 534,
+      "h": 368
+     }
+    ],
+    "title": {
+     "x": 54,
+     "y": 1327.8,
+     "size": 34.8,
+     "color": "#3A3B3D",
+     "align": "left",
+     "maxWidth": 646.5,
+     "lines": 2,
+     "font": "display"
+    },
+    "date": {
+     "x": 54,
+     "y": 1408.9,
+     "size": 24.6,
+     "color": "#E2401A",
+     "align": "left",
+     "font": "serif"
+    }
+   },
+   "single": {
+    "src": "./frames/fasilkom-single.webp",
+    "width": 800,
+    "height": 1124,
+    "radius": 12,
+    "photos": [
+     {
+      "x": 44,
+      "y": 325,
+      "w": 712,
+      "h": 509
+     }
+    ],
+    "title": {
+     "x": 44,
+     "y": 956.6,
+     "size": 27.6,
+     "color": "#3A3B3D",
+     "align": "left",
+     "maxWidth": 289.2,
+     "lines": 2,
+     "font": "display"
+    },
+    "date": {
+     "x": 44,
+     "y": 1020.9,
+     "size": 19.5,
+     "color": "#E2401A",
+     "align": "left",
+     "font": "serif"
+    }
+   }
+  }
+ },
+ "benih": {
+  "id": "benih",
+  "name": "Benih Mimpi",
+  "bg": "#1B260E",
+  "layouts": {
+   "4-cut": {
+    "src": "./frames/benih-4-cut.webp",
+    "width": 640,
+    "height": 1988,
+    "radius": 8,
+    "photos": [
+     {
+      "x": 40,
+      "y": 236,
+      "w": 560,
+      "h": 339
+     },
+     {
+      "x": 40,
+      "y": 597,
+      "w": 560,
+      "h": 339
+     },
+     {
+      "x": 40,
+      "y": 958,
+      "w": 560,
+      "h": 339
+     },
+     {
+      "x": 40,
+      "y": 1319,
+      "w": 560,
+      "h": 339
+     }
+    ],
+    "title": {
+     "x": 70.0,
+     "y": 1808.2,
+     "size": 25.0,
+     "color": "#FFFFFF",
+     "align": "left",
+     "maxWidth": 360.0,
+     "lines": 2,
+     "font": "display"
+    },
+    "date": {
+     "x": 70.0,
+     "y": 1865.7,
+     "size": 17.0,
+     "color": "#C6EB5A",
+     "align": "left",
+     "font": "serif"
+    }
+   },
+   "grid-2x2": {
+    "src": "./frames/benih-grid-2x2.webp",
+    "width": 1200,
+    "height": 1398,
+    "radius": 12,
+    "photos": [
+     {
+      "x": 58,
+      "y": 342,
+      "w": 527,
+      "h": 363
+     },
+     {
+      "x": 615,
+      "y": 342,
+      "w": 527,
+      "h": 363
+     },
+     {
+      "x": 58,
+      "y": 735,
+      "w": 527,
+      "h": 363
+     },
+     {
+      "x": 615,
+      "y": 735,
+      "w": 527,
+      "h": 363
+     }
+    ],
+    "title": {
+     "x": 101.5,
+     "y": 1248.3,
+     "size": 36.2,
+     "color": "#FFFFFF",
+     "align": "left",
+     "maxWidth": 794.0,
+     "lines": 1,
+     "font": "display"
+    },
+    "date": {
+     "x": 101.5,
+     "y": 1288.1,
+     "size": 24.6,
+     "color": "#C6EB5A",
+     "align": "left",
+     "font": "serif"
+    }
+   },
+   "single": {
+    "src": "./frames/benih-single.webp",
+    "width": 800,
+    "height": 1031,
+    "radius": 9,
+    "photos": [
+     {
+      "x": 50,
+      "y": 271,
+      "w": 700,
+      "h": 500
+     }
+    ],
+    "title": {
+     "x": 84.5,
+     "y": 901.2,
+     "size": 28.7,
+     "color": "#FFFFFF",
+     "align": "left",
+     "maxWidth": 470.0,
+     "lines": 1,
+     "font": "display"
+    },
+    "date": {
+     "x": 84.5,
+     "y": 932.8,
+     "size": 19.5,
+     "color": "#C6EB5A",
+     "align": "left",
+     "font": "serif"
+    }
+   }
+  }
+ },
+ "panen-data": {
+  "id": "panen-data",
+  "name": "Panen Data",
+  "bg": "#0F130A",
+  "layouts": {
+   "4-cut": {
+    "src": "./frames/panen-data-4-cut.webp",
+    "width": 640,
+    "height": 2108,
+    "radius": 6,
+    "photos": [
+     {
+      "x": 30,
+      "y": 173,
+      "w": 580,
+      "h": 352
+     },
+     {
+      "x": 30,
+      "y": 543,
+      "w": 580,
+      "h": 352
+     },
+     {
+      "x": 30,
+      "y": 913,
+      "w": 580,
+      "h": 352
+     },
+     {
+      "x": 30,
+      "y": 1283,
+      "w": 580,
+      "h": 352
+     }
+    ],
+    "title": {
+     "x": 30,
+     "y": 1717.5,
+     "size": 22.0,
+     "color": "#C6EB5A",
+     "align": "left",
+     "maxWidth": 580,
+     "lines": 2,
+     "font": "mono"
+    },
+    "date": {
+     "x": 30,
+     "y": 1768.1,
+     "size": 15.0,
+     "color": "#C9D4A8",
+     "align": "left",
+     "font": "mono"
+    }
+   },
+   "grid-2x2": {
+    "src": "./frames/panen-data-grid-2x2.webp",
+    "width": 1200,
+    "height": 1350,
+    "radius": 9,
+    "photos": [
+     {
+      "x": 48,
+      "y": 250,
+      "w": 539,
+      "h": 372
+     },
+     {
+      "x": 613,
+      "y": 250,
+      "w": 539,
+      "h": 372
+     },
+     {
+      "x": 48,
+      "y": 648,
+      "w": 539,
+      "h": 372
+     },
+     {
+      "x": 613,
+      "y": 648,
+      "w": 539,
+      "h": 372
+     }
+    ],
+    "title": {
+     "x": 48,
+     "y": 1119.1,
+     "size": 31.9,
+     "color": "#C6EB5A",
+     "align": "left",
+     "maxWidth": 334.6,
+     "lines": 2,
+     "font": "mono"
+    },
+    "date": {
+     "x": 48,
+     "y": 1192.5,
+     "size": 21.8,
+     "color": "#C9D4A8",
+     "align": "left",
+     "font": "mono"
+    }
+   },
+   "single": {
+    "src": "./frames/panen-data-single.webp",
+    "width": 800,
+    "height": 1012,
+    "radius": 7,
+    "photos": [
+     {
+      "x": 40,
+      "y": 198,
+      "w": 720,
+      "h": 514
+     }
+    ],
+    "title": {
+     "x": 40,
+     "y": 809.7,
+     "size": 25.3,
+     "color": "#C6EB5A",
+     "align": "left",
+     "maxWidth": 357.8,
+     "lines": 2,
+     "font": "mono"
+    },
+    "date": {
+     "x": 40,
+     "y": 867.9,
+     "size": 17.2,
+     "color": "#C9D4A8",
+     "align": "left",
+     "font": "mono"
+    }
+   }
+  }
+ },
+ "akar": {
+  "id": "akar",
+  "name": "Akar Kuat",
+  "bg": "#E8F0D0",
+  "layouts": {
+   "4-cut": {
+    "src": "./frames/akar-4-cut.webp",
+    "width": 640,
+    "height": 2048,
+    "radius": 18,
+    "photos": [
+     {
+      "x": 44,
+      "y": 233,
+      "w": 552,
+      "h": 335
+     },
+     {
+      "x": 44,
+      "y": 592,
+      "w": 552,
+      "h": 335
+     },
+     {
+      "x": 44,
+      "y": 951,
+      "w": 552,
+      "h": 335
+     },
+     {
+      "x": 44,
+      "y": 1310,
+      "w": 552,
+      "h": 335
+     }
+    ],
+    "title": {
+     "x": 320.0,
+     "y": 1739.8,
+     "size": 24.0,
+     "color": "#3B4429",
+     "align": "center",
+     "maxWidth": 512.0,
+     "lines": 1,
+     "font": "display"
+    },
+    "date": {
+     "x": 320.0,
+     "y": 1766.9,
+     "size": 17.0,
+     "color": "#E2401A",
+     "align": "center",
+     "font": "serif"
+    }
+   },
+   "grid-2x2": {
+    "src": "./frames/akar-grid-2x2.webp",
+    "width": 1200,
+    "height": 1472,
+    "radius": 26,
+    "photos": [
+     {
+      "x": 60,
+      "y": 338,
+      "w": 524,
+      "h": 361
+     },
+     {
+      "x": 616,
+      "y": 338,
+      "w": 524,
+      "h": 361
+     },
+     {
+      "x": 60,
+      "y": 731,
+      "w": 524,
+      "h": 361
+     },
+     {
+      "x": 616,
+      "y": 731,
+      "w": 524,
+      "h": 361
+     }
+    ],
+    "title": {
+     "x": 600.0,
+     "y": 1149.5,
+     "size": 34.8,
+     "color": "#3B4429",
+     "align": "center",
+     "maxWidth": 1022.0,
+     "lines": 1,
+     "font": "display"
+    },
+    "date": {
+     "x": 600.0,
+     "y": 1188.8,
+     "size": 24.6,
+     "color": "#E2401A",
+     "align": "center",
+     "font": "serif"
+    }
+   },
+   "single": {
+    "src": "./frames/akar-single.webp",
+    "width": 800,
+    "height": 1098,
+    "radius": 21,
+    "photos": [
+     {
+      "x": 50,
+      "y": 268,
+      "w": 700,
+      "h": 500
+     }
+    ],
+    "title": {
+     "x": 400.0,
+     "y": 844.1,
+     "size": 27.6,
+     "color": "#3B4429",
+     "align": "center",
+     "maxWidth": 654.0,
+     "lines": 1,
+     "font": "display"
+    },
+    "date": {
+     "x": 400.0,
+     "y": 875.2,
+     "size": 19.5,
+     "color": "#E2401A",
+     "align": "center",
+     "font": "serif"
+    }
+   }
+  }
+ },
+ "film": {
+  "id": "film",
+  "name": "Cerita Tunas",
+  "bg": "#0B0C07",
+  "layouts": {
+   "4-cut": {
+    "src": "./frames/film-4-cut.webp",
+    "width": 640,
+    "height": 1804,
+    "radius": 5,
+    "photos": [
+     {
+      "x": 52,
+      "y": 120,
+      "w": 536,
+      "h": 325
+     },
+     {
+      "x": 52,
+      "y": 459,
+      "w": 536,
+      "h": 325
+     },
+     {
+      "x": 52,
+      "y": 798,
+      "w": 536,
+      "h": 325
+     },
+     {
+      "x": 52,
+      "y": 1137,
+      "w": 536,
+      "h": 325
+     }
+    ],
+    "title": {
+     "x": 56,
+     "y": 1575.2,
+     "size": 25.0,
+     "color": "#F2B441",
+     "align": "left",
+     "maxWidth": 303.0,
+     "lines": 3,
+     "font": "mono"
+    },
+    "date": {
+     "x": 56,
+     "y": 1659.3,
+     "size": 14.0,
+     "color": "#E6D6AE",
+     "align": "left",
+     "font": "mono"
+    }
+   },
+   "grid-2x2": {
+    "src": "./frames/film-grid-2x2.webp",
+    "width": 1200,
+    "height": 1214,
+    "radius": 7,
+    "photos": [
+     {
+      "x": 75,
+      "y": 150,
+      "w": 460,
+      "h": 317
+     },
+     {
+      "x": 665,
+      "y": 150,
+      "w": 460,
+      "h": 317
+     },
+     {
+      "x": 75,
+      "y": 597,
+      "w": 460,
+      "h": 317
+     },
+     {
+      "x": 665,
+      "y": 597,
+      "w": 460,
+      "h": 317
+     }
+    ],
+    "title": {
+     "x": 79,
+     "y": 1000.4,
+     "size": 36.2,
+     "color": "#F2B441",
+     "align": "left",
+     "maxWidth": 859.6,
+     "lines": 2,
+     "font": "mono"
+    },
+    "date": {
+     "x": 79,
+     "y": 1078.9,
+     "size": 20.3,
+     "color": "#E6D6AE",
+     "align": "left",
+     "font": "mono"
+    }
+   },
+   "single": {
+    "src": "./frames/film-single.webp",
+    "width": 800,
+    "height": 876,
+    "radius": 6,
+    "photos": [
+     {
+      "x": 60,
+      "y": 120,
+      "w": 680,
+      "h": 486
+     }
+    ],
+    "title": {
+     "x": 64,
+     "y": 690.6,
+     "size": 28.7,
+     "color": "#F2B441",
+     "align": "left",
+     "maxWidth": 504.5,
+     "lines": 2,
+     "font": "mono"
+    },
+    "date": {
+     "x": 64,
+     "y": 752.8,
+     "size": 16.1,
+     "color": "#E6D6AE",
+     "align": "left",
+     "font": "mono"
+    }
+   }
+  }
+ }
+}

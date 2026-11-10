@@ -1,11 +1,11 @@
-// Main Application Controller for Promaha Booth
+// Main Application Controller for Tunas Booth (Fasilkom × Lab Pertanian Cerdas UNEJ)
 import '../style.css';
 import confetti from 'canvas-confetti';
 import { CameraManager } from './camera.js';
 import { BackgroundSegmenter } from './segmenter.js';
 import { CaptureManager } from './capture.js';
-import { StripRenderer, PROMAHA_FRAMES, DEFAULT_STRIP_TITLE } from './stripRenderer.js';
-import promahaStickers from './promahaStickers.json';
+import { StripRenderer, THEME_FRAMES, DEFAULT_STRIP_TITLE } from './stripRenderer.js';
+import themeStickers from './themeStickers.json';
 import { playChime } from './audio.js';
 import { initPWA } from './pwa.js';
 
@@ -79,7 +79,7 @@ const state = {
 
   // Studio customization state
   capturedSnapshots: [],
-  selectedTheme: 'pantau',
+  selectedTheme: 'dies',
   selectedFilter: 'normal',
   stripTitle: DEFAULT_STRIP_TITLE,
   stickers: [],
@@ -104,8 +104,12 @@ async function initApp() {
   stripRenderer.onAssetReady = () => {
     if (studioView.classList.contains('active') && !state.liveAnimId) updateStudioPreview(false);
   };
-  // Teks pada canvas baru memakai Montserrat setelah fontnya selesai dimuat
-  document.fonts?.ready.then(() => {
+  // Font judul frame (Unbounded, Fraunces, Plex Mono) dimuat eksplisit karena hanya dipakai di canvas
+  Promise.all(
+    ['700 32px Unbounded', 'italic 600 32px Fraunces', '700 32px "IBM Plex Mono"', '700 32px Montserrat'].map((f) =>
+      document.fonts?.load(f).catch(() => null)
+    )
+  ).then(() => {
     if (studioView.classList.contains('active') && !state.liveAnimId) updateStudioPreview(false);
   });
 
@@ -282,7 +286,7 @@ function setupEventListeners() {
     selectTheme(btn, btn.dataset.theme);
   });
 
-  // 11b. Studio View: Frame Promahadesa
+  // 11b. Studio View: Frame tema
   framesGrid.addEventListener('click', (e) => {
     const btn = e.target.closest('.frame-btn');
     if (!btn) return;
@@ -307,7 +311,7 @@ function setupEventListeners() {
     if (!btn) return;
 
     if (btn.dataset.stickerId) {
-      addImageSticker(promahaStickers.find((x) => x.id === btn.dataset.stickerId));
+      addImageSticker(themeStickers.find((x) => x.id === btn.dataset.stickerId));
     } else {
       addSticker(btn.dataset.emoji);
     }
@@ -329,7 +333,7 @@ function setupEventListeners() {
 
   // 15. Download Strip (PNG)
   btnDownload.addEventListener('click', () => {
-    const filename = `promaha-booth-${state.currentMode}-${Date.now()}.png`;
+    const filename = `tunas-booth-${state.currentMode}-${Date.now()}.png`;
     stripRenderer.download(filename);
   });
 
@@ -380,7 +384,7 @@ function setupEventListeners() {
       startLivePlayback(false);
       await stripRenderer.exportVideo({
         durationMs: 2800,
-        filename: `promaha-booth-live-${Date.now()}.mp4`,
+        filename: `tunas-booth-live-${Date.now()}.mp4`,
         onProgress: (p) => updateExportProgress(p),
       });
     } catch (err) {
@@ -400,7 +404,7 @@ function setupEventListeners() {
         fps: 10,
         durationMs: 2400,
         scale: 0.45,
-        filename: `promaha-booth-live-${Date.now()}.gif`,
+        filename: `tunas-booth-live-${Date.now()}.gif`,
         onProgress: (p) => updateExportProgress(p),
       });
     } catch (err) {
@@ -524,7 +528,7 @@ function openStudioView() {
     particleCount: 80,
     spread: 70,
     origin: { y: 0.6 },
-    colors: ['#A8CF45', '#2747C7', '#D9B24C', '#FFF8E7', '#3C8D2F'],
+    colors: ['#C6EB5A', '#EE3338', '#FFCD2A', '#0B9A55', '#F7F5EC', '#E2401A'],
   });
 
   const hasLive = hasLiveVideos();
@@ -679,7 +683,7 @@ function refreshStickerHint() {
   stripCanvas.classList.toggle('has-stickers', state.stickers.length > 0);
 }
 
-// Stiker gambar Promahadesa muncul di area bawah strip supaya tidak menutup wajah, lalu bisa diseret
+// Stiker gambar tema muncul di area bawah strip supaya tidak menutup wajah, lalu bisa diseret
 function addImageSticker(sticker) {
   if (state.stickers.length >= 12) {
     alert('Maksimal 12 stiker!');
@@ -702,10 +706,10 @@ function addImageSticker(sticker) {
 function buildStickerTray() {
   const label = document.createElement('span');
   label.className = 'sticker-group-label';
-  label.textContent = 'Promahadesa';
+  label.textContent = 'Fasilkom × Lab';
   const fragment = document.createDocumentFragment();
   fragment.appendChild(label);
-  promahaStickers.forEach((sticker) => {
+  themeStickers.forEach((sticker) => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'sticker-btn sticker-image';
@@ -731,7 +735,7 @@ function selectTheme(btn, themeId) {
 // Pilihan frame mengikuti layout sesi foto yang baru selesai
 function renderFramePicker() {
   framesGrid.innerHTML = '';
-  Object.values(PROMAHA_FRAMES).forEach((frame) => {
+  Object.values(THEME_FRAMES).forEach((frame) => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = `frame-btn${frame.id === state.selectedTheme ? ' active' : ''}`;
@@ -739,7 +743,7 @@ function renderFramePicker() {
     const img = document.createElement('img');
     img.src = frame.layouts[state.currentMode].src;
     img.alt = '';
-    img.style.background = '#8796B4';
+    img.style.background = '#8C9772';
     const name = document.createElement('span');
     name.textContent = frame.name;
     btn.append(img, name);

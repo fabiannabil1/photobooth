@@ -1,13 +1,13 @@
 {
-  "name": "Promaha Booth - Photobooth Promahadesa Kamal",
-  "short_name": "Promaha Booth",
-  "description": "Photobooth Promahadesa Kamal: frame dan strip foto Kader PANTAU, maskot, stiker, dan background desa.",
+  "name": "Tunas Booth - Photobooth Fasilkom × Lab Pertanian Cerdas UNEJ",
+  "short_name": "Tunas Booth",
+  "description": "Photobooth Fakultas Ilmu Komputer dan Laboratorium Pertanian Cerdas Universitas Jember: frame Dies Natalis ke-62, strip foto bertema pertumbuhan, maskot Si Tunas, stiker, dan background kebun pintar.",
   "start_url": "./",
   "scope": "./",
   "id": "./",
   "display": "standalone",
-  "background_color": "#0E1F4D",
-  "theme_color": "#0E1F4D",
+  "background_color": "#1E2611",
+  "theme_color": "#1E2611",
   "orientation": "any",
   "categories": [
     "photo",

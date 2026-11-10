@@ -4,18 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Promaha Booth - By Mas Bian</title>
+  <title>Tunas Booth - Fasilkom × Lab Pertanian Cerdas UNEJ</title>
   <meta name="description"
-    content="Photobooth Promahadesa Kamal, Universitas Jember 2026: frame dan strip foto bertema Kader PANTAU, maskot, stiker, dan background desa." />
+    content="Photobooth Fakultas Ilmu Komputer dan Laboratorium Pertanian Cerdas Universitas Jember: frame Dies Natalis ke-62, strip foto bertema pertumbuhan, maskot Si Tunas, stiker, dan background kebun pintar." />
   <link rel="icon" type="image/svg+xml" href="./icons/favicon.svg" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
   <link rel="manifest" href="./manifest.webmanifest" />
-  <meta name="theme-color" content="#0E1F4D" />
+  <meta name="theme-color" content="#1E2611" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Promaha Booth" />
+  <meta name="apple-mobile-web-app-title" content="Tunas Booth" />
   <link rel="stylesheet" href="./src/style.css" />
 
   <!-- MediaPipe Selfie Segmentation -->
@@ -78,10 +78,10 @@
         <!-- Sidebar Header: Brand -->
         <div class="sidebar-header">
           <div class="brand">
-            <img class="brand-logo" src="./brand/logo.webp" alt="Logo Promaha Desa Kamal" />
+            <img class="brand-logo" src="./brand/logo.webp" alt="Logo Laboratorium Pertanian Cerdas" />
             <div>
-              <h1 class="brand-title">PROMAHA BOOTH</h1>
-              <span class="brand-sub">Promahadesa Kamal 2026</span>
+              <h1 class="brand-title">TUNAS BOOTH</h1>
+              <span class="brand-sub">Lab Pertanian Cerdas · Fasilkom UNEJ</span>
             </div>
           </div>
           <button id="btnInstallApp" class="btn-install-pwa" style="display: none;" title="Pasang Aplikasi (PWA)">
@@ -94,10 +94,17 @@
           </button>
         </div>
 
+        <!-- Deret logo -->
+        <div class="partner-logos" aria-label="Fasilkom, Universitas Jember, dan Dies Natalis ke-62">
+          <img src="./brand/fasilkom.webp" alt="Fasilkom Universitas Jember" class="partner-wide" />
+          <img src="./brand/unej.webp" alt="Universitas Jember" />
+          <img src="./brand/dies62.webp" alt="Dies Natalis ke-62 Universitas Jember" />
+        </div>
+
         <!-- Sapaan Maskot -->
         <div class="mascot-greeting">
-          <img src="./brand/maskot.webp" alt="Maskot Promahadesa Kamal" />
-          <p class="mascot-bubble">Halo! Aku maskot Promahadesa Kamal. Pantau bersama, desa sehat!</p>
+          <img src="./brand/maskot.webp" alt="Si Tunas, maskot Lab Pertanian Cerdas" />
+          <p class="mascot-bubble">Halo, aku Si Tunas! Selamat Dies Natalis ke-62 UNEJ. Yuk tumbuh bersama, berfoto bersama!</p>
         </div>
 
         <!-- Background Options (Meet Style) -->
@@ -143,16 +150,20 @@
           <!-- Tab Content: Presets -->
           <div class="bg-tab-content" id="tab-presets">
             <div class="bg-presets-grid" id="presetsGrid">
-              <div class="bg-preset-item" data-preset="./backgrounds/promaha-backdrop.jpg">
-                <img src="./backgrounds/promaha-backdrop.jpg" alt="Backdrop resmi Promahadesa" />
-                <span class="bg-preset-name">Backdrop Resmi</span>
+              <div class="bg-preset-item" data-preset="./backgrounds/filkom-dies62.jpg">
+                <img src="./backgrounds/filkom-dies62.jpg" alt="Panggung Dies Natalis ke-62 UNEJ" />
+                <span class="bg-preset-name">Dies Natalis 62</span>
               </div>
-              <div class="bg-preset-item" data-preset="./backgrounds/promaha-desa.jpg">
-                <img src="./backgrounds/promaha-desa.jpg" alt="Panorama Desa Kamal" />
-                <span class="bg-preset-name">Desa Kamal</span>
+              <div class="bg-preset-item" data-preset="./backgrounds/filkom-kebun.jpg">
+                <img src="./backgrounds/filkom-kebun.jpg" alt="Kebun pintar dengan Si Tunas" />
+                <span class="bg-preset-name">Kebun Pintar</span>
               </div>
-              <div class="bg-preset-item" data-preset="./backgrounds/promaha-dinding.jpg">
-                <img src="./backgrounds/promaha-dinding.jpg" alt="Dinding logo Promaha" />
+              <div class="bg-preset-item" data-preset="./backgrounds/filkom-ladang.jpg">
+                <img src="./backgrounds/filkom-ladang.jpg" alt="Ladang irigasi" />
+                <span class="bg-preset-name">Ladang</span>
+              </div>
+              <div class="bg-preset-item" data-preset="./backgrounds/filkom-dinding.jpg">
+                <img src="./backgrounds/filkom-dinding.jpg" alt="Dinding logo Fasilkom dan Lab" />
                 <span class="bg-preset-name">Dinding Logo</span>
               </div>
               <div class="bg-preset-item" data-preset="./backgrounds/studio.jpg">
@@ -301,15 +312,15 @@
         <div class="sidebar-header">
           <div class="brand">
             <img class="brand-logo" src="./brand/logo.webp" alt="" />
-            <h2 class="brand-title">PROMAHA STUDIO</h2>
+            <h2 class="brand-title">TUNAS STUDIO</h2>
             <span class="brand-badge">Edit & Unduh</span>
           </div>
         </div>
 
-        <!-- Frame Promahadesa -->
+        <!-- Frame tema -->
         <div class="control-card">
           <div class="card-title">
-            <span>Frame Promahadesa</span>
+            <span>Frame Fasilkom × Lab</span>
           </div>
           <div class="frames-grid" id="framesGrid"></div>
         </div>
@@ -395,7 +406,7 @@
             <span>Teks & Judul Strip</span>
           </div>
           <div class="caption-input-group">
-            <input type="text" class="text-field" id="stripTitleInput" value="PANTAU BERSAMA, DESA SEHAT!"
+            <input type="text" class="text-field" id="stripTitleInput" value="TERUS TUMBUH, TERUS BERBUAH"
               placeholder="Ketik judul strip foto..." maxlength="32" />
           </div>
         </div>
